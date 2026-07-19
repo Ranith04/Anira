@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Playfair Display", serif;
+  --font-accent: "Cormorant Garamond", serif;
+  --font-sans: "Poppins", sans-serif;
+
+  --color-maroon-900: #6B1220;
+  --color-maroon-700: #8C1D35;
+  --color-maroon-600: #A32642;
+  
+  --color-gold-500: #C9A15A;
+  --color-gold-600: #B78F49;
+
+  --color-blush-50: #FDF1ED;
+  --color-blush-100: #FCE7E2;
+  --color-cream-50: #FFF8F5;
+
+  --color-ink-900: #2E1A1E;
+}
+
+@layer base {
+  body {
+    @apply font-sans bg-blush-50 text-ink-900;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}
