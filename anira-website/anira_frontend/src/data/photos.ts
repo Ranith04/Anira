@@ -1,6 +1,16 @@
-/** Exact imagery from the Readdy reference via their image CDN. */
-export const R = (query: string, width: number, height: number, seq: string) =>
-  `https://readdy.ai/api/search-image?query=${encodeURIComponent(query)}&width=${width}&height=${height}&seq=${seq}&orientation=portrait`
+/**
+ * Exact image URLs from the Readdy reference:
+ * https://readdy.cc/preview/1abd6199-d67b-445e-9517-f3a7a92db2a6/12147738/
+ * Queries, seq IDs, sizes, and orientation match the live reference 1:1.
+ */
+const R = (
+  query: string,
+  width: number,
+  height: number,
+  seq: string,
+  orientation: 'portrait' | 'squarish' = 'portrait',
+) =>
+  `https://readdy.ai/api/search-image?query=${encodeURIComponent(query)}&width=${width}&height=${height}&seq=${seq}&orientation=${orientation}`
 
 export const PHOTOS = {
   heroSaree: R(
@@ -29,7 +39,7 @@ export const PHOTOS = {
       'cat-kurtas-01',
     ),
     blouses: R(
-      'Designer saree blouse in deep maroon with gold zari work, displayed on bust form with soft neutral background, luxury fashion photography',
+      'Designer saree blouse in deep maroon with gold zari work,  displayed on bust form with soft neutral background, luxury fashion photography',
       600,
       800,
       'cat-blouses-01',
@@ -43,25 +53,25 @@ export const PHOTOS = {
   },
   occasions: {
     wedding: R(
-      'Bridal Indian woman in rich red and gold lehenga with heavy embroidery, wedding editorial photography, soft warm lighting',
+      'Indian bride in traditional red and gold saree with heavy jewelry, elegant wedding portrait photography, warm golden lighting, soft cream background',
       600,
       800,
       'occ-wedding-01',
     ),
     festivals: R(
-      'Woman in vibrant festive silk saree with gold jewelry, Diwali celebration mood, warm golden lighting, ethnic fashion photography',
+      'Woman in vibrant festive saree with floral decorations, celebration mood, traditional Indian festival fashion, warm natural lighting, elegant portrait',
       600,
       800,
-      'occ-festivals-01',
+      'occ-festival-01',
     ),
     daily: R(
-      'Woman in comfortable cotton kurta set for daily wear, soft natural lighting, lifestyle ethnic fashion photography',
+      'Young woman in simple elegant cotton kurta set in pastel blush pink, minimalist daily wear ethnic fashion, soft natural lighting, clean background',
       600,
       800,
       'occ-daily-01',
     ),
     party: R(
-      'Woman in elegant party wear ethnic gown with sequin work, evening lighting, glamorous fashion photography',
+      'Glamorous party wear lehenga in wine burgundy with sequin work, evening ethnic fashion, dramatic lighting, luxury editorial photography',
       600,
       800,
       'occ-party-01',
@@ -93,46 +103,46 @@ export const PHOTOS = {
       'prod-aakriti-01',
     ),
     vaani: R(
-      'Kids lehenga set in pink and gold for little girl, festive kids ethnic wear, soft studio lighting, product photography',
+      'Adorable kids ethnic lehenga choli set in soft pink and gold, on mannequin against warm cream background, children fashion photography',
       400,
       500,
       'prod-vaani-01',
     ),
     vibhaKids: R(
-      'Kids anarkali dress in soft pastel with embroidery, little girl ethnic wear, cream background product photography',
+      'Beautiful kids anarkali dress in peach and ivory with floral embroidery, mannequin display, soft lighting, premium children ethnic wear',
       400,
       500,
       'prod-vibha-kids-01',
     ),
     babyFrock: R(
-      'Baby girl silk frock in traditional design with gold accents, kids ethnic wear product photography',
+      'Delicate baby girl silk frock in pastel pink with gold accents, flat lay on cream background, luxury kids ethnic wear product shot',
       400,
       500,
-      'prod-baby-frock-01',
+      'prod-baby-01',
     ),
     babyGown: R(
-      'Baby girl ethnic gown in soft pink with embroidery, kids festive wear product photography',
+      'Elegant baby girl ethnic gown in soft lavender with ruffle details, flat lay display on neutral background, premium children fashion photography',
       400,
       500,
       'prod-baby-gown-01',
     ),
     sairaCotton: R(
-      'Cotton kurta set in soft pastel with simple embroidery, daily wear ethnic fashion product photography',
+      'Comfortable cotton kurta set in soft mint green with minimal print, on mannequin against neutral background, daily wear ethnic fashion photography',
       400,
       500,
-      'prod-saira-cotton-01',
+      'kurta-saira-01',
     ),
     sairaSilk: R(
-      'Silk blend kurta in elegant design with subtle embroidery, premium daily wear product photography',
+      'Silk blend kurta in warm peach with subtle embroidery details, on mannequin with soft lighting, premium daily ethnic wear photography',
       400,
       500,
-      'prod-saira-silk-01',
+      'kurta-saira-silk-01',
     ),
     sairaPrinted: R(
-      'Printed cotton kurta set with floral motifs, comfortable daily ethnic wear product photography',
+      'Floral printed kurta set in blush pink and ivory, elegant daily wear design, on mannequin against soft cream background, fashion photography',
       400,
       500,
-      'prod-saira-printed-01',
+      'kurta-print-01',
     ),
     aadhira1: R(
       'Raw silk salwar kameez set in deep wine with gold zari accents, traditional design, on mannequin against warm background, luxury ethnic fashion photography',
@@ -141,52 +151,52 @@ export const PHOTOS = {
       'kurta-aadhira-01',
     ),
     aadhira2: R(
-      'Raw silk 3-piece suit in ivory and gold, traditional ethnic wear on mannequin, luxury product photography',
+      'Elegant raw silk three piece suit in emerald green with gold embroidery, traditional Indian design, on mannequin, premium fashion photography',
       400,
       500,
       'kurta-aadhira-02',
     ),
     aadhira3: R(
-      'Raw silk salwar suit in blush pink with traditional embroidery, ethnic fashion product photography',
+      'Traditional raw silk salwar suit in royal blue with intricate mirror work, on mannequin against soft neutral background, luxury ethnic wear photography',
       400,
       500,
       'kurta-aadhira-03',
     ),
     vaishnava: R(
-      'Traditional skirt set in vibrant colors with embroidery, ethnic dress product photography',
+      'Traditional Indian skirt and top set in ivory with colorful embroidery, on mannequin against soft cream background, premium ethnic fashion photography',
       400,
       500,
-      'prod-vaishnava-01',
+      'dress-vaishnava-01',
     ),
     sohviCrop: R(
-      'Hakoba crop top and skirt set in ivory, ethnic fashion product photography',
+      'Elegant crop top and long skirt set in blush pink with lace work, on mannequin, soft neutral background, contemporary ethnic wear photography',
       400,
       500,
-      'prod-sohvi-crop-01',
+      'dress-sohvi-01',
     ),
     sohviDress: R(
-      'Ethnic dress in soft tones with delicate embroidery, product photography on cream background',
+      'Stunning ethnic gown dress in deep wine with gold embroidery and flowing silhouette, on mannequin against warm background, luxury fashion photography',
       400,
       500,
-      'prod-sohvi-dress-01',
+      'dress-sohvi-ethnic-01',
     ),
     parvathamalli1: R(
       'Traditional half saree lehenga style in vibrant pink and gold, on mannequin against soft neutral background, South Indian ethnic fashion photography',
       400,
       500,
-      'prod-parva-01',
+      'halfsaree-01',
     ),
     parvathamalli2: R(
-      'Half saree in rich maroon and gold with traditional border, ethnic fashion product photography',
+      'Elegant half saree in pastel peach with temple border design, traditional drape on mannequin, warm lighting, premium ethnic wear photography',
       400,
       500,
-      'prod-parva-02',
+      'halfsaree-02',
     ),
     brhinda: R(
-      'Pure chiffon half saree in soft pastel with delicate work, premium ethnic product photography',
+      'Graceful pure chiffon half saree in soft lavender with silver accents, flowing fabric on mannequin, soft background, luxury fashion photography',
       400,
       500,
-      'prod-brhinda-01',
+      'halfsaree-03',
     ),
   },
   blouses: {
@@ -197,19 +207,19 @@ export const PHOTOS = {
       'blouse-hakoba-01',
     ),
     daily: R(
-      'Simple daily wear blouse in soft cotton, elegant design, fashion product photography',
+      'Simple elegant daily wear cotton blouse in blush pink with minimal embroidery, on bust form, clean neutral background, premium product shot',
       500,
       600,
       'blouse-daily-01',
     ),
     maggam: R(
-      'Maggam work blouse with heavy gold embroidery, luxury blouse product photography',
+      'Elaborate maggam work blouse in deep maroon with heavy gold thread embroidery, on bust form against soft background, luxury bridal fashion photography',
       500,
       600,
       'blouse-maggam-01',
     ),
     traditional: R(
-      'Traditional silk blouse in deep maroon with gold border, ethnic fashion photography',
+      'Traditional silk blouse in rich burgundy with classic elbow sleeves and gold border, on bust form, warm lighting, ethnic fashion photography',
       500,
       600,
       'blouse-trad-01',
@@ -223,13 +233,13 @@ export const PHOTOS = {
       'combo-01',
     ),
     twinning: R(
-      'Mother and daughter in matching kurta sets, twinning ethnic wear, warm family portrait photography',
+      'Mother and daughter wearing matching floral kurtas in blush pink, outdoor garden setting, warm natural lighting, ethnic twinning fashion photography',
       600,
       700,
       'combo-02',
     ),
     festive: R(
-      'Family in festive ethnic wear matching outfits, celebration mood, warm photography',
+      'Mother and daughter in coordinated festive outfits in burgundy and gold, elegant indoor setting with warm lighting, traditional family portrait photography',
       600,
       700,
       'combo-03',
@@ -237,27 +247,27 @@ export const PHOTOS = {
   },
   collections: {
     aaditri: R(
-      'Luxurious bridal saree in rich red and gold with heavy embroidery, dramatic lighting, premium wedding collection editorial photography',
-      500,
-      650,
+      'Luxurious bridal saree in rich red and gold with heavy embroidery, dramatic lighting, premium wedding collection editorial photography, warm tones',
+      700,
+      900,
       'coll-aaditri-01',
     ),
     nirvi: R(
-      'Festive collection saree in vibrant colors with gold work, editorial ethnic fashion photography',
-      500,
-      650,
+      'Vibrant festive saree in deep orange and maroon with traditional motifs, elegant display, warm golden lighting, premium festival collection photography',
+      700,
+      900,
       'coll-nirvi-01',
     ),
     gulabi: R(
-      'Daily wear collection kurta in soft blush pink, lifestyle ethnic fashion photography',
-      500,
-      650,
+      'Soft cotton saree in blush pink with delicate floral print, relaxed elegant display, natural lighting, daily wear collection photography',
+      700,
+      900,
       'coll-gulabi-01',
     ),
     shriya: R(
-      'Party wear collection ethnic gown with sequins, glamorous fashion photography',
-      500,
-      650,
+      'Glamorous designer saree in midnight blue with silver sequin work, dramatic evening lighting, luxury party wear collection editorial photography',
+      700,
+      900,
       'coll-shriya-01',
     ),
   },
@@ -267,12 +277,55 @@ export const PHOTOS = {
     900,
     'testimonial-main-01',
   ),
+  avatar: R(
+    'Professional headshot of young Indian woman with warm smile, soft natural lighting, neutral background, elegant portrait photography',
+    100,
+    100,
+    'avatar-priya-01',
+    'squarish',
+  ),
   instagram: [
-    R('Indian woman in burgundy saree Instagram style photo', 400, 400, 'ig-01'),
-    R('Woman in designer kurta casual ethnic Instagram photo', 400, 400, 'ig-02'),
-    R('Bridal lehenga detail Instagram fashion photo', 400, 400, 'ig-03'),
-    R('Festive saree drape Instagram style shot', 400, 400, 'ig-04'),
-    R('Kids ethnic wear Instagram photo', 400, 400, 'ig-05'),
-    R('Mother daughter twinning ethnic Instagram photo', 400, 400, 'ig-06'),
+    R(
+      'Elegant Indian woman in burgundy saree with gold jewelry, lifestyle fashion photography, warm indoor setting, Instagram style square crop',
+      400,
+      400,
+      'insta-01',
+      'squarish',
+    ),
+    R(
+      'Beautiful ethnic wear flat lay with saree, jewelry, and flowers in blush pink and gold, aesthetic Instagram style photography',
+      400,
+      400,
+      'insta-02',
+      'squarish',
+    ),
+    R(
+      'Young woman in designer kurta set walking in traditional courtyard, natural lighting, lifestyle ethnic fashion, Instagram style photography',
+      400,
+      400,
+      'insta-03',
+      'squarish',
+    ),
+    R(
+      'Close up of intricate embroidery work on silk blouse in maroon and gold, detail shot, warm lighting, Instagram style macro photography',
+      400,
+      400,
+      'insta-04',
+      'squarish',
+    ),
+    R(
+      'Mother and daughter in matching ethnic outfits, warm family moment, soft natural lighting, Instagram lifestyle photography',
+      400,
+      400,
+      'insta-05',
+      'squarish',
+    ),
+    R(
+      'Elegant Indian bride getting ready in traditional saree with floral decorations, candid moment, warm tones, Instagram style photography',
+      400,
+      400,
+      'insta-06',
+      'squarish',
+    ),
   ],
 } as const

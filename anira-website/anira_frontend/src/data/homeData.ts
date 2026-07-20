@@ -99,7 +99,7 @@ export const TESTIMONIALS: Testimonial[] = [
     location: 'Bangalore',
     quote:
       'ANIRA has completely transformed my wardrobe for festive occasions. The saree quality is unmatched and the designs are so unique. I get compliments every time I wear one!',
-    avatar: PHOTOS.testimonial,
+    avatar: PHOTOS.avatar,
     rating: 5,
   },
   {
@@ -108,7 +108,7 @@ export const TESTIMONIALS: Testimonial[] = [
     location: 'Chennai',
     quote:
       'The kurta sets are so comfortable yet elegant. I ordered for my daughter and me for Diwali and both sets fit perfectly. ANIRA is now our go-to for every festival.',
-    avatar: PHOTOS.testimonial,
+    avatar: PHOTOS.avatar,
     rating: 5,
   },
   {
@@ -117,7 +117,7 @@ export const TESTIMONIALS: Testimonial[] = [
     location: 'Hyderabad',
     quote:
       "Ordered a bridal lehenga for my sister's wedding and the craftsmanship was beyond expectations. Delivery was on time and the packaging felt truly premium.",
-    avatar: PHOTOS.testimonial,
+    avatar: PHOTOS.avatar,
     rating: 5,
   },
 ]
