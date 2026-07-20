@@ -59,10 +59,10 @@ export const PHOTOS = {
       'occ-wedding-01',
     ),
     festivals: R(
-      'Woman in vibrant festive saree with floral decorations, celebration mood, traditional Indian festival fashion, warm natural lighting, elegant portrait',
+      'Indian woman in a vibrant festive work saree with rich gold embroidery and traditional jewelry, Diwali celebration mood, marigold flowers, warm golden lighting, elegant ethnic fashion portrait, soft cream background',
       600,
       800,
-      'occ-festival-01',
+      'occ-festival-02',
     ),
     daily: R(
       'Young woman in simple elegant cotton kurta set in pastel blush pink, minimalist daily wear ethnic fashion, soft natural lighting, clean background',
@@ -71,10 +71,10 @@ export const PHOTOS = {
       'occ-daily-01',
     ),
     party: R(
-      'Glamorous party wear lehenga in wine burgundy with sequin work, evening ethnic fashion, dramatic lighting, luxury editorial photography',
+      'Glamorous Indian woman in a designer party wear saree in deep burgundy with sequin and shimmer work, evening ethnic fashion, dramatic soft lighting, luxury editorial photography',
       600,
       800,
-      'occ-party-01',
+      'occ-party-02',
     ),
   },
   products: {

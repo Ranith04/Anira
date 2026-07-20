@@ -34,14 +34,7 @@ export interface CollectionTile {
   href: string
 }
 
-export interface BlouseType {
-  id: string
-  name: string
-  image: string
-  href: string
-}
-
-export interface ComboTile {
+export interface StyleTile {
   id: string
   name: string
   image: string

@@ -3,12 +3,10 @@ import { Mail, MapPin, Phone } from 'lucide-react'
 import { FacebookIcon, InstagramIcon, YoutubeIcon } from '@/components/common/SocialIcons'
 
 const COLLECTIONS = [
+  { label: 'Work Sarees', href: '/category/sarees?type=work' },
   { label: 'Designer Sarees', href: '/category/sarees' },
-  { label: 'Kurtas & Suits', href: '/category/kurtas' },
-  { label: 'Blouses', href: '/category/blouses' },
-  { label: 'Ethnic Dresses', href: '/category/dresses' },
-  { label: 'Kids Wear', href: '/category/kids' },
-  { label: 'Half Sarees', href: '/category/half-sarees' },
+  { label: 'Daily Wear Kurtas', href: '/category/kurtas?type=daily' },
+  { label: 'Festive Kurtas', href: '/category/kurtas?type=festive' },
 ]
 
 const QUICK_LINKS = [
@@ -41,8 +39,7 @@ export function Footer() {
             </Link>
             <p className="mb-4 max-w-xs font-body text-sm leading-relaxed text-foreground-600">
               ANIRA combines centuries-old weaving traditions with contemporary style. Based in
-              Bangalore, we present a stunning collection of traditional South Indian ethnic wear for
-              women.
+              Bangalore, we specialise in work sarees and designer kurtas for the modern Indian woman.
             </p>
             <div className="space-y-1.5">
               <p className="flex items-center gap-2 font-body text-sm text-foreground-600">

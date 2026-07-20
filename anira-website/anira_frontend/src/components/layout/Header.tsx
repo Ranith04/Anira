@@ -123,7 +123,7 @@ export function Header() {
               type="search"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search for sarees, kurtas, lehengas..."
+              placeholder="Search for sarees, kurtas..."
               className="w-full bg-transparent font-body text-sm text-foreground-900 placeholder:text-foreground-400 focus:outline-none"
             />
             <button type="button" aria-label="Close search" onClick={() => setIsSearchOpen(false)}>

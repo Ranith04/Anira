@@ -22,14 +22,14 @@ export function AboutUs() {
           <p className="mx-auto mb-4 max-w-2xl font-body text-sm leading-relaxed text-foreground-700 md:text-base">
             At ANIRA, we celebrate the timeless beauty of Indian ethnic wear. Passed down through
             generations of artisans, our passion for these stunning garments shines through in every
-            thread. We don&apos;t just sell sarees and kurtas — we weave stories of love, tradition,
-            and craftsmanship into each piece.
+            thread. We specialise in work sarees and designer kurtas — weaving stories of love,
+            tradition, and craftsmanship into each piece.
           </p>
           <p className="mx-auto mb-8 max-w-2xl font-body text-sm leading-relaxed text-foreground-700 md:text-base">
             Based in the heart of Bangalore&apos;s Electronic City, ANIRA brings together
-            centuries-old weaving traditions with contemporary style. Whether you&apos;re looking for
-            a grand wedding saree, a comfortable daily wear kurta, or a festive lehenga for your
-            little one, our curated collections promise to make every occasion memorable.
+            centuries-old weaving traditions with contemporary style. Whether you need a polished
+            work saree for the office, a festive drape for celebrations, or a comfortable daily wear
+            kurta, our curated edits are made for every occasion.
           </p>
           <Link
             to="/about"
