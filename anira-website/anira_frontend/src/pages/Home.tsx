@@ -3,7 +3,6 @@ import { ShopByCategory } from '@/components/home/ShopByCategory'
 import { ShopByOccasion } from '@/components/home/ShopByOccasion'
 import { ProductGridSection } from '@/components/home/ProductGridSection'
 import { StyleCollections } from '@/components/home/StyleCollections'
-import { ShopByCollections } from '@/components/home/ShopByCollections'
 import { AboutUs } from '@/components/home/AboutUs'
 import { Testimonials } from '@/components/home/Testimonials'
 import { InstagramFeed } from '@/components/home/InstagramFeed'
@@ -61,7 +60,6 @@ export default function Home() {
         background="100"
       />
 
-      <ShopByCollections />
       <AboutUs />
       <Testimonials />
       <InstagramFeed />
