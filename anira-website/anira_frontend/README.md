@@ -10,7 +10,7 @@ This is the React 19 SPA frontend for the ANIRA E-Commerce platform.
    ```
 
 2. **Environment Variables**
-   Create a `.env` file at the root of `feora_frontend` if it doesn't exist:
+   Create a `.env` file at the root of `anira_frontend` if it doesn't exist:
    ```
    VITE_API_BASE_URL=https://localhost:7001/api
    ```
