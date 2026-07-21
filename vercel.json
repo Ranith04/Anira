@@ -1,0 +1,7 @@
+{
+  "framework": "vite",
+  "installCommand": "npm install --prefix anira-website/anira_frontend",
+  "buildCommand": "npm run build --prefix anira-website/anira_frontend",
+  "outputDirectory": "anira-website/anira_frontend/dist",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}

@@ -22,7 +22,8 @@ function isTab(value: string | null): value is Tab {
 
 export default function Account() {
   const [params, setParams] = useSearchParams()
-  const tab: Tab = isTab(params.get('tab')) ? params.get('tab')! : 'overview'
+  const tabParam = params.get('tab')
+  const tab: Tab = isTab(tabParam) ? tabParam : 'overview'
 
   const selectTab = (next: Tab) => {
     setParams(next === 'overview' ? {} : { tab: next }, { replace: true })
