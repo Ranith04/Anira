@@ -13,6 +13,30 @@ const R = (
   `https://readdy.ai/api/search-image?query=${encodeURIComponent(query)}&width=${width}&height=${height}&seq=${seq}&orientation=${orientation}`
 
 export const PHOTOS = {
+  /** Auto-rotating hero backgrounds (sourced from reference brand pages; swap with ANIRA assets later) */
+  heroSlides: [
+    {
+      id: 'hero-party-saree',
+      label: 'Party Wear Saree',
+      // Ref: https://sudathi.com/blogs/blogs/wedding-ready-in-a-red-saree-shaadi-sabki-hai-edition
+      image: '/hero/party-saree-sudathi.jpg',
+      objectPosition: 'center',
+    },
+    {
+      id: 'hero-designer-saree',
+      label: 'Designer Saree',
+      // Ref: https://www.taneira.com/shop/inaya-saree-collection (product shots, no banner text)
+      image: '/hero/designer-saree-taneira.jpg',
+      objectPosition: 'center',
+    },
+    {
+      id: 'hero-kurta',
+      label: 'Kurti Sets',
+      // Ref: https://instore.co.in/ (Kurti Sets banner — top-weighted so faces stay in frame)
+      image: '/hero/kurti-sets-instore.jpg',
+      objectPosition: 'center top',
+    },
+  ],
   heroSaree: R(
     'Elegant Indian woman wearing a luxurious deep burgundy work saree with intricate gold zari embroidery and heavy mirror work, rich silk fabric with elaborate pallu design, traditional jewelry, soft warm studio lighting, blush pink and champagne gold backdrop, high-end ethnic fashion photography, full body shot',
     800,
