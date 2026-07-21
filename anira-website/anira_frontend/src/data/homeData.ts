@@ -1,10 +1,9 @@
 import type {
-  CategoryTile,
   CollectionTile,
   InstagramPost,
   NavLink,
-  OccasionTile,
   Product,
+  ShopRangeTile,
   StyleTile,
   Testimonial,
 } from '@/types'
@@ -18,61 +17,39 @@ export const NAV_LINKS: NavLink[] = [
   { label: 'Contact', href: '/#contact' },
 ]
 
-export const CATEGORY_TILES: CategoryTile[] = [
+/** Unified shop dashboard — category + occasion in one curated grid */
+export const SHOP_RANGE_TILES: ShopRangeTile[] = [
   {
-    id: 'cat-work-sarees',
-    name: 'Work Sarees',
-    count: '80+ Designs',
-    image: PHOTOS.categories.sarees,
-    href: '/category/sarees?type=work',
-  },
-  {
-    id: 'cat-designer-sarees',
+    id: 'range-designer-sarees',
     name: 'Designer Sarees',
-    count: '60+ Designs',
+    subtitle: 'Signature Edit',
     image: PHOTOS.collections.nirvi,
     href: '/category/sarees',
+    featured: true,
   },
   {
-    id: 'cat-daily-kurtas',
-    name: 'Daily Wear Kurtas',
-    count: '50+ Designs',
-    image: PHOTOS.categories.kurtas,
-    href: '/category/kurtas?type=daily',
-  },
-  {
-    id: 'cat-festive-kurtas',
-    name: 'Festive Kurtas',
-    count: '45+ Designs',
-    image: PHOTOS.products.aadhira1,
-    href: '/category/kurtas?type=festive',
-  },
-]
-
-export const OCCASION_TILES: OccasionTile[] = [
-  {
-    id: 'occ-festivals',
-    name: 'Festivals',
-    subtitle: 'Festive Edit',
-    image: PHOTOS.collections.nirvi,
-    href: '/occasion/festivals',
-  },
-  {
-    id: 'occ-daily',
-    name: 'Daily Wear',
-    subtitle: 'Everyday Elegance',
-    image: PHOTOS.occasions.daily,
-    href: '/occasion/daily-wear',
-  },
-  {
-    id: 'occ-party',
+    id: 'range-party',
     name: 'Party Wear',
     subtitle: 'Evening Edit',
     image: PHOTOS.collections.shriya,
     href: '/occasion/party-wear',
   },
   {
-    id: 'occ-office',
+    id: 'range-festive-kurtas',
+    name: 'Festive Kurtas',
+    subtitle: 'Celebration Ready',
+    image: PHOTOS.products.aadhira1,
+    href: '/category/kurtas?type=festive',
+  },
+  {
+    id: 'range-daily-kurtas',
+    name: 'Daily Wear Kurtas',
+    subtitle: 'Everyday Ease',
+    image: PHOTOS.categories.kurtas,
+    href: '/category/kurtas?type=daily',
+  },
+  {
+    id: 'range-office',
     name: 'Office Wear',
     subtitle: 'Workday Grace',
     image: PHOTOS.products.sairaSilk,

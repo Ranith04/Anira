@@ -10,6 +10,15 @@ export interface Product {
   categorySlug: string
 }
 
+export interface ShopRangeTile {
+  id: string
+  name: string
+  subtitle: string
+  image: string
+  href: string
+  featured?: boolean
+}
+
 export interface CategoryTile {
   id: string
   name: string

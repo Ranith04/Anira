@@ -1,6 +1,5 @@
 import { Hero } from '@/components/home/Hero'
-import { ShopByCategory } from '@/components/home/ShopByCategory'
-import { ShopByOccasion } from '@/components/home/ShopByOccasion'
+import { ShopRange } from '@/components/home/ShopRange'
 import { ProductGridSection } from '@/components/home/ProductGridSection'
 import { StyleCollections } from '@/components/home/StyleCollections'
 import { AboutUs } from '@/components/home/AboutUs'
@@ -18,8 +17,7 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <ShopByCategory />
-      <ShopByOccasion />
+      <ShopRange />
 
       <ProductGridSection
         overline="Handpicked For You"
