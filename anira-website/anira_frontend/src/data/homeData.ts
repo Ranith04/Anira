@@ -11,10 +11,50 @@ import { PHOTOS } from '@/data/photos'
 
 export const NAV_LINKS: NavLink[] = [
   { label: 'Home', href: '/' },
-  { label: 'Sarees', href: '/category/sarees' },
-  { label: 'Kurtas', href: '/category/kurtas' },
-  { label: 'About', href: '/#about' },
-  { label: 'Contact', href: '/#contact' },
+  {
+    label: 'Sarees',
+    href: '/category/sarees',
+    children: [
+      {
+        label: 'Designer Sarees',
+        href: '/category/sarees?type=designer',
+        description: 'Signature weaves & craft',
+        image: PHOTOS.collections.nirvi,
+      },
+      {
+        label: 'Party Wear',
+        href: '/category/sarees?type=party',
+        description: 'Evening-ready drapes',
+        image: PHOTOS.collections.shriya,
+      },
+      {
+        label: 'Work Sarees',
+        href: '/category/sarees?type=work',
+        description: 'Everyday polished drapes',
+        image: PHOTOS.categories.sarees,
+      },
+    ],
+  },
+  {
+    label: 'Kurtas',
+    href: '/category/kurtas',
+    children: [
+      {
+        label: 'Daily Wear Kurtas',
+        href: '/category/kurtas?type=daily',
+        description: 'Easy everyday comfort',
+        image: PHOTOS.categories.kurtas,
+      },
+      {
+        label: 'Festive Kurtas',
+        href: '/category/kurtas?type=festive',
+        description: 'Celebration ensembles',
+        image: PHOTOS.products.aadhira1,
+      },
+    ],
+  },
+  { label: 'About', href: '/about' },
+  { label: 'Contact', href: '/contact' },
 ]
 
 /** Unified shop dashboard — category + occasion in one curated grid */
@@ -24,7 +64,7 @@ export const SHOP_RANGE_TILES: ShopRangeTile[] = [
     name: 'Designer Sarees',
     subtitle: 'Signature Edit',
     image: PHOTOS.collections.nirvi,
-    href: '/category/sarees',
+    href: '/category/sarees?type=designer',
     featured: true,
   },
   {
@@ -32,7 +72,7 @@ export const SHOP_RANGE_TILES: ShopRangeTile[] = [
     name: 'Party Wear',
     subtitle: 'Evening Edit',
     image: PHOTOS.collections.shriya,
-    href: '/occasion/party-wear',
+    href: '/category/sarees?type=party',
   },
   {
     id: 'range-festive-kurtas',
@@ -53,7 +93,7 @@ export const SHOP_RANGE_TILES: ShopRangeTile[] = [
     name: 'Office Wear',
     subtitle: 'Workday Grace',
     image: PHOTOS.products.sairaSilk,
-    href: '/occasion/office-wear',
+    href: '/category/kurtas?type=daily',
   },
 ]
 

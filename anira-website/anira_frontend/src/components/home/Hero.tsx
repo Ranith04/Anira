@@ -69,7 +69,7 @@ export function Hero() {
                   Shop Now
                 </Link>
                 <Link
-                  to="/#about"
+                  to="/about"
                   className="inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-background-200/50 px-6 py-3 font-body text-sm font-medium text-background-50 transition-colors hover:bg-background-50/10"
                 >
                   Our Story

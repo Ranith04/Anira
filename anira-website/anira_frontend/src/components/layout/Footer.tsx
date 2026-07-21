@@ -10,8 +10,8 @@ const COLLECTIONS = [
 ]
 
 const QUICK_LINKS = [
-  { label: 'About ANIRA', href: '/#about' },
-  { label: 'Contact Us', href: '/#contact' },
+  { label: 'About ANIRA', href: '/about' },
+  { label: 'Contact Us', href: '/contact' },
   { label: 'Shipping Policy', href: '/shipping-returns' },
   { label: 'Return & Exchange', href: '/shipping-returns' },
   { label: 'Size Guide', href: '/size-guide' },

@@ -6,12 +6,16 @@ const CategoryListing = lazy(() => import('@/pages/CategoryListing'))
 const ProductDetail = lazy(() => import('@/pages/ProductDetail'))
 const Cart = lazy(() => import('@/pages/Cart'))
 const Checkout = lazy(() => import('@/pages/Checkout'))
+const About = lazy(() => import('@/pages/About'))
+const Contact = lazy(() => import('@/pages/Contact'))
 
 export const AppRoutes = () => {
   return (
     <Suspense fallback={<div className="flex h-screen items-center justify-center font-sans">Loading...</div>}>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/category/:slug" element={<CategoryListing type="category" />} />
         <Route path="/occasion/:slug" element={<CategoryListing type="occasion" />} />
         <Route path="/collection/:slug" element={<CategoryListing type="collection" />} />

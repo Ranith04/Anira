@@ -65,8 +65,15 @@ export interface InstagramPost {
   href: string
 }
 
+export interface NavChild {
+  label: string
+  href: string
+  description?: string
+  image?: string
+}
+
 export interface NavLink {
   label: string
   href: string
-  children?: { label: string; href: string }[]
+  children?: NavChild[]
 }
