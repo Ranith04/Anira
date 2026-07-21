@@ -77,3 +77,46 @@ export interface NavLink {
   href: string
   children?: NavChild[]
 }
+
+export type OrderStatus = 'placed' | 'packed' | 'shipped' | 'delivered'
+
+export interface Address {
+  id: string
+  label: string
+  name: string
+  phone: string
+  line1: string
+  line2?: string
+  city: string
+  state: string
+  pincode: string
+  isDefault?: boolean
+}
+
+export interface UserProfile {
+  name: string
+  email: string
+  phone: string
+}
+
+export interface OrderItem {
+  id: string
+  slug: string
+  name: string
+  price: number
+  image: string
+  quantity: number
+}
+
+export interface Order {
+  id: string
+  createdAt: string
+  status: OrderStatus
+  items: OrderItem[]
+  subtotal: number
+  shipping: number
+  total: number
+  contact: { name: string; email: string; phone: string }
+  address: Omit<Address, 'id' | 'label' | 'isDefault'>
+  paymentMethod: string
+}

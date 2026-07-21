@@ -1,10 +1,33 @@
 import { useEffect, useId, useRef, useState, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router'
-import { ChevronDown, Menu, Search, ShoppingBag, User, X } from 'lucide-react'
+import {
+  ChevronDown,
+  Ellipsis,
+  Heart,
+  Info,
+  Mail,
+  Menu,
+  Package,
+  Ruler,
+  Search,
+  ShoppingBag,
+  Truck,
+  User,
+  X,
+} from 'lucide-react'
 import { NAV_LINKS } from '@/data/homeData'
 import { useCartStore } from '@/store/cartStore'
 import { cn } from '@/lib/cn'
 import type { NavLink as NavLinkType } from '@/types'
+
+const MORE_LINKS = [
+  { label: 'Wishlist', href: '/account?tab=wishlist', hint: 'Saved pieces', icon: Heart },
+  { label: 'Orders', href: '/orders', hint: 'Track your edit', icon: Package },
+  { label: 'About', href: '/about', hint: 'Our studio story', icon: Info },
+  { label: 'Contact', href: '/contact', hint: 'Write to ANIRA', icon: Mail },
+  { label: 'Shipping & Returns', href: '/shipping-returns', hint: 'Delivery policy', icon: Truck },
+  { label: 'Size Guide', href: '/size-guide', hint: 'Fit reference', icon: Ruler },
+] as const
 
 function Logo({ onNavigate }: { onNavigate?: () => void }) {
   return (
@@ -165,6 +188,100 @@ function DesktopNavItem({ link }: { link: NavLinkType }) {
   )
 }
 
+function DesktopMoreMenu() {
+  const [open, setOpen] = useState(false)
+  const closeTimer = useRef<number | null>(null)
+  const panelId = useId()
+
+  const clearClose = () => {
+    if (closeTimer.current) {
+      window.clearTimeout(closeTimer.current)
+      closeTimer.current = null
+    }
+  }
+
+  const scheduleClose = () => {
+    clearClose()
+    closeTimer.current = window.setTimeout(() => setOpen(false), 140)
+  }
+
+  useEffect(() => () => clearClose(), [])
+
+  return (
+    <div
+      className="relative"
+      onMouseEnter={() => {
+        clearClose()
+        setOpen(true)
+      }}
+      onMouseLeave={scheduleClose}
+      onFocus={() => {
+        clearClose()
+        setOpen(true)
+      }}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget)) setOpen(false)
+      }}
+    >
+      <button
+        type="button"
+        aria-expanded={open}
+        aria-controls={panelId}
+        className={cn(
+          'inline-flex items-center gap-1 whitespace-nowrap font-body text-sm transition-colors duration-300',
+          open ? 'text-primary-500' : 'text-foreground-700 hover:text-primary-500',
+        )}
+        onClick={() => setOpen((v) => !v)}
+      >
+        More
+        <ChevronDown
+          className={cn('size-3.5 transition-transform duration-300', open && 'rotate-180')}
+        />
+      </button>
+
+      <div
+        id={panelId}
+        className={cn(
+          'absolute right-0 top-full z-50 w-[min(92vw,320px)] pt-4 transition-all duration-300',
+          open
+            ? 'pointer-events-auto translate-y-0 opacity-100'
+            : 'pointer-events-none -translate-y-1 opacity-0',
+        )}
+      >
+        <div className="overflow-hidden rounded-2xl border border-primary-500/10 bg-background-50 shadow-[0_20px_50px_-20px_rgba(90,30,40,0.35)]">
+          <div className="border-b border-primary-500/10 bg-background-100/70 px-5 py-3">
+            <p className="font-body text-[10px] uppercase tracking-[0.22em] text-foreground-500">
+              Studio desk
+            </p>
+            <p className="mt-0.5 font-heading text-lg font-semibold text-primary-500">More from ANIRA</p>
+          </div>
+          <ul className="p-2">
+            {MORE_LINKS.map(({ label, href, hint, icon: Icon }) => (
+              <li key={href + label}>
+                <Link
+                  to={href}
+                  onClick={() => setOpen(false)}
+                  className="flex items-center gap-3 rounded-xl px-3 py-2.5 transition-colors hover:bg-background-100"
+                >
+                  <span className="flex size-9 items-center justify-center rounded-full bg-primary-500/8 text-primary-500">
+                    <Icon className="size-4" />
+                  </span>
+                  <span>
+                    <span className="block font-heading text-base font-semibold text-foreground-900">
+                      {label}
+                    </span>
+                    <span className="font-body text-xs text-foreground-500">{hint}</span>
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function MobileNavItem({
   link,
   onNavigate,
@@ -254,7 +371,9 @@ export function Header() {
   const [searchQuery, setSearchQuery] = useState('')
   const navigate = useNavigate()
 
-  const cartCount = useCartStore((state) => state.lines.reduce((sum, l) => sum + l.quantity, 0))
+  const cartCount = useCartStore((state) =>
+    (Array.isArray(state.lines) ? state.lines : []).reduce((sum, l) => sum + l.quantity, 0),
+  )
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 20)
@@ -273,8 +392,9 @@ export function Header() {
   const handleSearchSubmit = (e: FormEvent) => {
     e.preventDefault()
     if (!searchQuery.trim()) return
-    navigate(`/category/search?q=${encodeURIComponent(searchQuery.trim())}`)
+    navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`)
     setIsSearchOpen(false)
+    setSearchQuery('')
   }
 
   const closeMobile = () => setIsMobileMenuOpen(false)
@@ -294,6 +414,7 @@ export function Header() {
             {NAV_LINKS.map((link) => (
               <DesktopNavItem key={link.href} link={link} />
             ))}
+            <DesktopMoreMenu />
           </nav>
 
           <div className="flex items-center gap-3 md:gap-4">
@@ -362,8 +483,10 @@ export function Header() {
       />
       <aside
         className={cn(
-          'fixed inset-y-0 right-0 z-[70] w-[80%] max-w-sm translate-x-full bg-background-50 shadow-2xl transition-transform duration-300 lg:hidden',
-          isMobileMenuOpen && 'translate-x-0',
+          'fixed inset-y-0 right-0 z-[70] w-[80%] max-w-sm bg-background-50 shadow-2xl transition-transform duration-300 lg:hidden',
+          isMobileMenuOpen
+            ? 'pointer-events-auto translate-x-0'
+            : 'pointer-events-none translate-x-full',
         )}
       >
         <div className="flex items-center justify-between border-b border-background-200 px-5 py-4">
@@ -372,10 +495,43 @@ export function Header() {
             <X className="size-6 text-foreground-900" />
           </button>
         </div>
-        <nav className="flex flex-col font-body">
+        <nav className="flex flex-col overflow-y-auto font-body">
           {NAV_LINKS.map((link) => (
             <MobileNavItem key={link.href} link={link} onNavigate={closeMobile} />
           ))}
+
+          <div className="border-t border-background-200 px-5 py-4">
+            <p className="mb-3 flex items-center gap-2 font-body text-[10px] uppercase tracking-[0.22em] text-foreground-500">
+              <Ellipsis className="size-3.5" />
+              More
+            </p>
+            <div className="space-y-1">
+              {MORE_LINKS.map(({ label, href, hint, icon: Icon }) => (
+                <Link
+                  key={href + label}
+                  to={href}
+                  onClick={closeMobile}
+                  className="flex items-center gap-3 rounded-xl px-2 py-2.5 transition-colors hover:bg-background-100"
+                >
+                  <span className="flex size-9 items-center justify-center rounded-full bg-primary-500/8 text-primary-500">
+                    <Icon className="size-4" />
+                  </span>
+                  <span>
+                    <span className="block text-sm font-medium text-foreground-800">{label}</span>
+                    <span className="text-xs text-foreground-500">{hint}</span>
+                  </span>
+                </Link>
+              ))}
+              <Link
+                to="/account"
+                onClick={closeMobile}
+                className="mt-2 flex items-center gap-3 rounded-xl px-2 py-2.5 text-sm font-medium text-primary-500 hover:bg-background-100"
+              >
+                <User className="size-4" />
+                My Account
+              </Link>
+            </div>
+          </div>
         </nav>
       </aside>
     </header>

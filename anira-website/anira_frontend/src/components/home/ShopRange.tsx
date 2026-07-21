@@ -50,6 +50,20 @@ function RangeTile({ tile, className }: { tile: ShopRangeTile; className?: strin
           >
             {tile.name}
           </h3>
+          <span
+            className={cn(
+              'mt-2.5 inline-flex items-center gap-1.5 font-body font-medium tracking-wide text-background-50/95 transition-colors group-hover:text-accent-400',
+              tile.featured ? 'text-sm md:text-base' : 'text-xs md:text-sm',
+            )}
+          >
+            Shop Now
+            <ArrowUpRight
+              className={cn(
+                'transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5',
+                tile.featured ? 'size-4' : 'size-3.5',
+              )}
+            />
+          </span>
         </div>
         <span
           className={cn(
