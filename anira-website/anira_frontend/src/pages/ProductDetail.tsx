@@ -101,7 +101,7 @@ export default function ProductDetail() {
           <span className="text-foreground-800">{product.name}</span>
         </nav>
 
-        <div className="grid gap-8 lg:grid-cols-2 lg:gap-14">
+        <div className="grid gap-8 lg:grid-cols-2 lg:gap-14" data-reveal>
           <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-background-100">
             <img
               src={product.image}

@@ -16,7 +16,7 @@ export default function Cart() {
 
   if (lines.length === 0) {
     return (
-      <div className="w-full bg-background-50 px-4 py-16 md:px-8 lg:px-12">
+      <div className="w-full bg-background-50 px-4 py-16 md:px-8 lg:px-12" data-reveal>
         <div className="mx-auto max-w-lg rounded-2xl border border-primary-500/10 bg-background-100 px-6 py-16 text-center">
           <h1 className="font-heading text-2xl font-semibold text-foreground-900">Your bag is empty</h1>
           <p className="mt-2 font-body text-sm text-foreground-500">
@@ -42,7 +42,7 @@ export default function Cart() {
   }
 
   return (
-    <div className="w-full bg-background-50 px-4 py-10 md:px-8 md:py-14 lg:px-12">
+    <div className="w-full bg-background-50 px-4 py-10 md:px-8 md:py-14 lg:px-12" data-reveal>
       <p className="mb-2 font-body text-xs uppercase tracking-[0.22em] text-foreground-500">Bag</p>
       <h1 className="mb-8 font-heading text-3xl font-semibold text-foreground-900 md:text-4xl">
         Your selection

@@ -20,6 +20,7 @@ export function Hero() {
 
   return (
     <section
+      data-no-reveal
       className="relative w-full overflow-hidden bg-primary-500"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
