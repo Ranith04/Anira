@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Anira\\anira-website\\feora_backend\\feora_backend.csproj": {}
+    "D:\\Anira\\anira-website\\anira_backend\\feora_backend.csproj": {}
   },
   "projects": {
-    "D:\\Anira\\anira-website\\feora_backend\\feora_backend.csproj": {
+    "D:\\Anira\\anira-website\\anira_backend\\feora_backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Anira\\anira-website\\feora_backend\\feora_backend.csproj",
+        "projectUniqueName": "D:\\Anira\\anira-website\\anira_backend\\feora_backend.csproj",
         "projectName": "feora_backend",
-        "projectPath": "D:\\Anira\\anira-website\\feora_backend\\feora_backend.csproj",
+        "projectPath": "D:\\Anira\\anira-website\\anira_backend\\feora_backend.csproj",
         "packagesPath": "C:\\Users\\ranit\\.nuget\\packages\\",
-        "outputPath": "D:\\Anira\\anira-website\\feora_backend\\obj\\",
+        "outputPath": "D:\\Anira\\anira-website\\anira_backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ranit\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -59,10 +59,6 @@
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[9.0.0, )"
-            },
-            "Microsoft.AspNetCore.OpenApi": {
-              "target": "Package",
-              "version": "[9.0.18, )"
             },
             "Npgsql": {
               "target": "Package",

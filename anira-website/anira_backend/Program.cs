@@ -77,7 +77,29 @@ builder.Services.AddAuthorization();
 // Add Validators, Services, Repositories here
 // builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
+builder.Services.AddTransient<feora_backend.Services.DatabaseSeeder>();
+builder.Services.AddScoped<feora_backend.Repositories.Interfaces.ICategoryRepository, feora_backend.Repositories.Implementations.CategoryRepository>();
+builder.Services.AddScoped<feora_backend.Repositories.Interfaces.IProductRepository, feora_backend.Repositories.Implementations.ProductRepository>();
+builder.Services.AddScoped<feora_backend.Repositories.Interfaces.IUserRepository, feora_backend.Repositories.Implementations.UserRepository>();
+
 var app = builder.Build();
+
+// Test Database Connection and Seed on Startup
+try
+{
+    using var scope = app.Services.CreateScope();
+    var factory = scope.ServiceProvider.GetRequiredService<DbConnectionFactory>();
+    using var conn = await factory.CreateConnectionAsync();
+    app.Logger.LogInformation("✅ Successfully connected to the PostgreSQL database!");
+    
+    // Run seeder
+    var seeder = scope.ServiceProvider.GetRequiredService<feora_backend.Services.DatabaseSeeder>();
+    await seeder.SeedAsync();
+}
+catch (System.Exception ex)
+{
+    app.Logger.LogError(ex, "❌ Failed to connect to the PostgreSQL database or seed data.");
+}
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 

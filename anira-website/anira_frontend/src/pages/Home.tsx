@@ -6,6 +6,7 @@ import { AboutUs } from '@/components/home/AboutUs'
 import { Testimonials } from '@/components/home/Testimonials'
 import { InstagramFeed } from '@/components/home/InstagramFeed'
 import { Newsletter } from '@/components/home/Newsletter'
+import { useProducts } from '@/api/catalog'
 import {
   DAILY_KURTA_PRODUCTS,
   FESTIVE_KURTA_PRODUCTS,
@@ -14,17 +15,22 @@ import {
 } from '@/data/homeData'
 
 export default function Home() {
+  const { data: dbProducts, isLoading } = useProducts();
+
+  // If loading or no db products, fallback to static for the first row, otherwise use db
+  const latestProducts = dbProducts && dbProducts.length > 0 ? dbProducts : WORK_SAREE_PRODUCTS;
+
   return (
     <>
       <Hero />
       <ShopRange />
 
       <ProductGridSection
-        overline="Handpicked For You"
-        title="Work"
-        highlight="Sarees"
-        ctaHref="/category/sarees?type=work"
-        products={WORK_SAREE_PRODUCTS}
+        overline={isLoading ? "Loading..." : "Fresh From Our Database"}
+        title="Latest"
+        highlight="Arrivals"
+        ctaHref="/category/sarees"
+        products={latestProducts}
         background="50"
         columns={4}
       />

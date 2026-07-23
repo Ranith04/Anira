@@ -4,6 +4,9 @@ import { Heart, MapPin, Package, User } from 'lucide-react'
 import { ProductCard } from '@/components/product/ProductCard'
 import { getProductById } from '@/data/catalog'
 import { useCartStore } from '@/store/cartStore'
+import { useProfile, setAuthToken } from '@/api/auth'
+import { Login } from './Auth/Login'
+import { Register } from './Auth/Register'
 import { cn } from '@/lib/cn'
 import type { Address } from '@/types'
 
@@ -28,11 +31,13 @@ export default function Account() {
   const selectTab = (next: Tab) => {
     setParams(next === 'overview' ? {} : { tab: next }, { replace: true })
   }
-  const profile = useCartStore((s) => s.profile)
+  
+  const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
+  const { data: profile, isLoading, refetch } = useProfile();
+
   const addresses = useCartStore((s) => s.addresses)
   const wishlistIds = useCartStore((s) => s.wishlistIds)
   const orders = useCartStore((s) => s.orders)
-  const updateProfile = useCartStore((s) => s.updateProfile)
   const upsertAddress = useCartStore((s) => s.upsertAddress)
   const removeAddress = useCartStore((s) => s.removeAddress)
 
@@ -41,11 +46,35 @@ export default function Account() {
     [wishlistIds],
   )
 
+  if (isLoading) {
+    return <div className="p-12 text-center font-body text-foreground-500">Loading profile...</div>;
+  }
+
+  if (!profile) {
+    return (
+      <div className="w-full bg-background-50 px-4 py-10 md:px-8 md:py-14 lg:px-12 min-h-[60vh]">
+        {authMode === 'login' ? (
+          <Login onSwitchToRegister={() => setAuthMode('register')} onSuccess={() => refetch()} />
+        ) : (
+          <Register onSwitchToLogin={() => setAuthMode('login')} onSuccess={() => refetch()} />
+        )}
+      </div>
+    );
+  }
+
   return (
     <div className="w-full bg-background-50 px-4 py-10 md:px-8 md:py-14 lg:px-12">
-      <p className="mb-2 font-body text-xs uppercase tracking-[0.22em] text-foreground-500">Account</p>
+      <div className="flex justify-between items-center mb-2">
+        <p className="font-body text-xs uppercase tracking-[0.22em] text-foreground-500">Account</p>
+        <button 
+          onClick={() => { setAuthToken(''); refetch(); }}
+          className="font-body text-xs text-primary-500 hover:underline"
+        >
+          Sign Out
+        </button>
+      </div>
       <h1 className="font-heading text-3xl font-semibold text-foreground-900 md:text-4xl">
-        Welcome back, {profile.name.split(' ')[0]}
+        Welcome back, {profile.name?.split(' ')[0] || profile.fullName?.split(' ')[0]}
       </h1>
       <p className="mt-2 max-w-xl font-body text-sm text-foreground-500">
         Manage your profile, addresses, and wishlist — your ANIRA edit, saved locally for now.
@@ -73,7 +102,7 @@ export default function Account() {
       <div className="mt-8">
         {tab === 'overview' && (
           <Overview
-            name={profile.name}
+            name={profile.name || profile.fullName}
             orderCount={orders.length}
             wishlistCount={wishlistIds.length}
             addressCount={addresses.length}
@@ -82,9 +111,9 @@ export default function Account() {
         )}
         {tab === 'profile' && (
           <ProfileForm
-            initial={profile}
+            initial={{ name: profile.fullName || profile.name, email: profile.email, phone: profile.phone || '' }}
             onSave={(next) => {
-              updateProfile(next)
+              // Real API integration goes here later
             }}
           />
         )}
