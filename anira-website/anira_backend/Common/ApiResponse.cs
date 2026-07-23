@@ -1,4 +1,4 @@
-namespace feora_backend.Common;
+namespace anira_backend.Common;
 
 public record ApiResponse<T>(bool Success, T? Data, string? Message, string[]? Errors)
 {

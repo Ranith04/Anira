@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using feora_backend.DTOs;
+using anira_backend.DTOs;
 
-namespace feora_backend.Repositories.Interfaces;
+namespace anira_backend.Repositories.Interfaces;
 
 public interface ICategoryRepository
 {

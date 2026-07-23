@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using feora_backend.DTOs;
-using feora_backend.Repositories.Interfaces;
+using anira_backend.DTOs;
+using anira_backend.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace feora_backend.Controllers;
+namespace anira_backend.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
-using feora_backend.Entities;
+using anira_backend.Entities;
 
-namespace feora_backend.Repositories.Interfaces;
+namespace anira_backend.Repositories.Interfaces;
 
 public interface IUserRepository
 {

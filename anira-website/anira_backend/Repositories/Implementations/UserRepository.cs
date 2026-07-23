@@ -1,11 +1,11 @@
 using System;
 using System.Threading.Tasks;
 using Dapper;
-using feora_backend.Common;
-using feora_backend.Entities;
-using feora_backend.Repositories.Interfaces;
+using anira_backend.Common;
+using anira_backend.Entities;
+using anira_backend.Repositories.Interfaces;
 
-namespace feora_backend.Repositories.Implementations;
+namespace anira_backend.Repositories.Implementations;
 
 public class UserRepository : IUserRepository
 {

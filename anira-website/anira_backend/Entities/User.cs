@@ -1,6 +1,6 @@
 using System;
 
-namespace feora_backend.Entities;
+namespace anira_backend.Entities;
 
 public enum UserRole { Customer, Staff, Admin }
 

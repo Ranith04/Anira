@@ -1,11 +1,11 @@
 using System;
 using System.Threading.Tasks;
 using Dapper;
-using feora_backend.Common;
+using anira_backend.Common;
 using Microsoft.Extensions.Logging;
 using BCrypt.Net;
 
-namespace feora_backend.Services;
+namespace anira_backend.Services;
 
 public class DatabaseSeeder
 {
@@ -22,7 +22,58 @@ public class DatabaseSeeder
     {
         using var conn = await _dbConnectionFactory.CreateConnectionAsync();
         
-        // Always ensure the demo user exists
+        // 1. Automatic Database Migrations via db_changelog.txt
+        await conn.ExecuteAsync(@"
+            CREATE TABLE IF NOT EXISTS _schema_migrations (
+                last_length INT NOT NULL DEFAULT 0
+            );
+            INSERT INTO _schema_migrations (last_length) 
+            SELECT 0 WHERE NOT EXISTS (SELECT 1 FROM _schema_migrations);
+        ");
+
+        var changelogPath = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "db_changelog.txt");
+        if (System.IO.File.Exists(changelogPath))
+        {
+            var sql = await System.IO.File.ReadAllTextAsync(changelogPath);
+            // Normalize line endings to avoid length calculation bugs across OS
+            sql = sql.Replace("\r\n", "\n"); 
+            var lastLength = await conn.QuerySingleAsync<int>("SELECT last_length FROM _schema_migrations LIMIT 1");
+
+            // If this is the very first run (lastLength == 0) but the 'users' table already exists, 
+            // it means the baseline was deployed manually before this migration system was added.
+            // We should fast-forward the lastLength to avoid crashing.
+            if (lastLength == 0)
+            {
+                var baselineExists = await conn.ExecuteScalarAsync<int>("SELECT COUNT(1) FROM information_schema.tables WHERE table_name = 'users'") > 0;
+                if (baselineExists)
+                {
+                    lastLength = sql.Length;
+                    await conn.ExecuteAsync("UPDATE _schema_migrations SET last_length = @Len", new { Len = lastLength });
+                    _logger.LogInformation("Fast-forwarded migration baseline to {Len} characters.", lastLength);
+                }
+            }
+
+            if (sql.Length > lastLength)
+            {
+                _logger.LogInformation("New changes detected in db_changelog.txt. Executing migrations...");
+                var newSql = sql.Substring(lastLength);
+                
+                using var migrationTx = conn.BeginTransaction();
+                try
+                {
+                    await conn.ExecuteAsync(newSql, transaction: migrationTx);
+                    await conn.ExecuteAsync("UPDATE _schema_migrations SET last_length = @Len", new { Len = sql.Length }, transaction: migrationTx);
+                    migrationTx.Commit();
+                    _logger.LogInformation("Successfully executed {Len} bytes of new SQL.", newSql.Length);
+                }
+                catch (Exception ex)
+                {
+                    migrationTx.Rollback();
+                    _logger.LogError(ex, "Failed to execute new SQL in db_changelog.txt. Please check your syntax.");
+                    throw;
+                }
+            }
+        }
         var demoUserExists = await conn.ExecuteScalarAsync<int>("SELECT COUNT(1) FROM users WHERE email = 'priya@example.com'");
         if (demoUserExists == 0)
         {

@@ -1,11 +1,12 @@
 -- =====================================================================
 -- ANIRA — THE ETHNIC STUDIO
--- PostgreSQL schema for sarees / kurtas / blouses / dresses / kids /
--- combo-set ecommerce site.  (v2 — adds SEO, homepage CMS, tags,
--- inventory logs, returns, coupon usage, recently-viewed, FAQs,
--- banners, static pages, admin permissions, audit log, OTP login,
--- notifications, product videos, CDN-ready image fields, and
--- variant-level price/cost overrides.)
+-- PostgreSQL schema
+--
+-- IMPORTANT: This file is AUTOMATICALLY EXECUTED on `dotnet run`.
+-- The backend tracks the length of this file. 
+-- If you need to make database changes (like adding a table or column),
+-- ONLY APPEND new SQL to the VERY BOTTOM of this file.
+-- DO NOT modify or delete existing lines above, or it will break the sync!
 -- =====================================================================
 -- Design notes carried from v1:
 --   * UUID PKs everywhere except small closed lookup tables (serial).

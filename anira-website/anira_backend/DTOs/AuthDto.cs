@@ -1,6 +1,6 @@
 using System;
 
-namespace feora_backend.DTOs;
+namespace anira_backend.DTOs;
 
 public class LoginRequest
 {

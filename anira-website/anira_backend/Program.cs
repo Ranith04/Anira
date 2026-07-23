@@ -1,6 +1,6 @@
 using System.Text;
-using feora_backend.Common;
-using feora_backend.Common.Middleware;
+using anira_backend.Common;
+using anira_backend.Common.Middleware;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -77,10 +77,10 @@ builder.Services.AddAuthorization();
 // Add Validators, Services, Repositories here
 // builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
-builder.Services.AddTransient<feora_backend.Services.DatabaseSeeder>();
-builder.Services.AddScoped<feora_backend.Repositories.Interfaces.ICategoryRepository, feora_backend.Repositories.Implementations.CategoryRepository>();
-builder.Services.AddScoped<feora_backend.Repositories.Interfaces.IProductRepository, feora_backend.Repositories.Implementations.ProductRepository>();
-builder.Services.AddScoped<feora_backend.Repositories.Interfaces.IUserRepository, feora_backend.Repositories.Implementations.UserRepository>();
+builder.Services.AddTransient<anira_backend.Services.DatabaseSeeder>();
+builder.Services.AddScoped<anira_backend.Repositories.Interfaces.ICategoryRepository, anira_backend.Repositories.Implementations.CategoryRepository>();
+builder.Services.AddScoped<anira_backend.Repositories.Interfaces.IProductRepository, anira_backend.Repositories.Implementations.ProductRepository>();
+builder.Services.AddScoped<anira_backend.Repositories.Interfaces.IUserRepository, anira_backend.Repositories.Implementations.UserRepository>();
 
 var app = builder.Build();
 
@@ -93,7 +93,7 @@ try
     app.Logger.LogInformation("✅ Successfully connected to the PostgreSQL database!");
     
     // Run seeder
-    var seeder = scope.ServiceProvider.GetRequiredService<feora_backend.Services.DatabaseSeeder>();
+    var seeder = scope.ServiceProvider.GetRequiredService<anira_backend.Services.DatabaseSeeder>();
     await seeder.SeedAsync();
 }
 catch (System.Exception ex)

@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Npgsql;
 
-namespace feora_backend.Common;
+namespace anira_backend.Common;
 
 public class DbConnectionFactory(NpgsqlDataSource dataSource)
 {

@@ -4,15 +4,15 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using BCrypt.Net;
-using feora_backend.DTOs;
-using feora_backend.Entities;
-using feora_backend.Repositories.Interfaces;
+using anira_backend.DTOs;
+using anira_backend.Entities;
+using anira_backend.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace feora_backend.Controllers;
+namespace anira_backend.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

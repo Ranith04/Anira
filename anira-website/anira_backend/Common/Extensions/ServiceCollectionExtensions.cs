@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace feora_backend.Common.Extensions;
+namespace anira_backend.Common.Extensions;
 
 public static class ServiceCollectionExtensions
 {
