@@ -4,7 +4,8 @@ import { ChevronDown, Menu, Search, ShoppingBag, User, X } from 'lucide-react'
 import { NAV_LINKS } from '@/data/homeData'
 import { useCartStore } from '@/store/cartStore'
 import { useQueryClient } from '@tanstack/react-query'
-import { useProfile, setAuthToken, authKeys } from '@/api/auth'
+import { setAuthToken, authKeys } from '@/api/auth'
+import { useRole } from '@/hooks/useRole'
 import { cn } from '@/lib/cn'
 import type { NavLink as NavLinkType } from '@/types'
 
@@ -253,7 +254,7 @@ function AccountDropdown() {
   const [open, setOpen] = useState(false)
   const closeTimer = useRef<number | null>(null)
   const panelId = useId()
-  const { data: profile } = useProfile()
+  const { profile, isAuthenticated, isAdmin } = useRole()
   const queryClient = useQueryClient()
 
   const clearClose = () => {
@@ -309,55 +310,70 @@ function AccountDropdown() {
         )}
       >
         <div className="overflow-hidden rounded-2xl border border-primary-500/10 bg-white shadow-[0_20px_60px_-15px_rgba(90,30,40,0.15)] ring-1 ring-black/5">
-          {profile ? (
+          {isAuthenticated ? (
             <>
               <div className="border-b border-primary-500/10 bg-background-50 px-5 py-4">
                 <p className="font-heading text-lg font-semibold text-foreground-900">
-                  Hello, {profile.name?.split(' ')[0] || profile.fullName?.split(' ')[0]}
+                  Hello, {profile?.name?.split(' ')[0] || profile?.fullName?.split(' ')[0]}
                 </p>
-                {profile.phone && (
+                {profile?.phone && (
                   <p className="mt-0.5 font-body text-xs text-foreground-500">{profile.phone}</p>
                 )}
               </div>
-              <div className="py-2">
-                <Link
-                  to="/orders"
-                  onClick={() => setOpen(false)}
-                  className="block px-5 py-2.5 font-body text-sm font-medium text-foreground-700 hover:bg-background-50 hover:text-primary-500"
-                >
-                  Orders
-                </Link>
-                <Link
-                  to="/account?tab=wishlist"
-                  onClick={() => setOpen(false)}
-                  className="block px-5 py-2.5 font-body text-sm font-medium text-foreground-700 hover:bg-background-50 hover:text-primary-500"
-                >
-                  Wishlist
-                </Link>
-                <Link
-                  to="/contact"
-                  onClick={() => setOpen(false)}
-                  className="block px-5 py-2.5 font-body text-sm font-medium text-foreground-700 hover:bg-background-50 hover:text-primary-500"
-                >
-                  Contact Us
-                </Link>
-              </div>
-              <div className="border-t border-primary-500/10 py-2">
-                <Link
-                  to="/account?tab=addresses"
-                  onClick={() => setOpen(false)}
-                  className="block px-5 py-2.5 font-body text-sm font-medium text-foreground-700 hover:bg-background-50 hover:text-primary-500"
-                >
-                  Saved Addresses
-                </Link>
-                <Link
-                  to="/account?tab=profile"
-                  onClick={() => setOpen(false)}
-                  className="block px-5 py-2.5 font-body text-sm font-medium text-foreground-700 hover:bg-background-50 hover:text-primary-500"
-                >
-                  Edit Profile
-                </Link>
-              </div>
+              
+              {isAdmin ? (
+                <div className="py-2">
+                  <Link
+                    to="/admin"
+                    onClick={() => setOpen(false)}
+                    className="block px-5 py-2.5 font-body text-sm font-medium text-primary-500 hover:bg-primary-50"
+                  >
+                    Return to Dashboard
+                  </Link>
+                </div>
+              ) : (
+                <>
+                  <div className="py-2">
+                    <Link
+                      to="/orders"
+                      onClick={() => setOpen(false)}
+                      className="block px-5 py-2.5 font-body text-sm font-medium text-foreground-700 hover:bg-background-50 hover:text-primary-500"
+                    >
+                      Orders
+                    </Link>
+                    <Link
+                      to="/account?tab=wishlist"
+                      onClick={() => setOpen(false)}
+                      className="block px-5 py-2.5 font-body text-sm font-medium text-foreground-700 hover:bg-background-50 hover:text-primary-500"
+                    >
+                      Wishlist
+                    </Link>
+                    <Link
+                      to="/contact"
+                      onClick={() => setOpen(false)}
+                      className="block px-5 py-2.5 font-body text-sm font-medium text-foreground-700 hover:bg-background-50 hover:text-primary-500"
+                    >
+                      Contact Us
+                    </Link>
+                  </div>
+                  <div className="border-t border-primary-500/10 py-2">
+                    <Link
+                      to="/account?tab=addresses"
+                      onClick={() => setOpen(false)}
+                      className="block px-5 py-2.5 font-body text-sm font-medium text-foreground-700 hover:bg-background-50 hover:text-primary-500"
+                    >
+                      Saved Addresses
+                    </Link>
+                    <Link
+                      to="/account?tab=profile"
+                      onClick={() => setOpen(false)}
+                      className="block px-5 py-2.5 font-body text-sm font-medium text-foreground-700 hover:bg-background-50 hover:text-primary-500"
+                    >
+                      Edit Profile
+                    </Link>
+                  </div>
+                </>
+              )}
               <div className="border-t border-primary-500/10 py-2">
                 <button
                   type="button"
@@ -365,6 +381,7 @@ function AccountDropdown() {
                     setAuthToken('')
                     queryClient.setQueryData(authKeys.profile(), null)
                     setOpen(false)
+                    window.location.href = '/'
                   }}
                   className="w-full px-5 py-2.5 text-left font-body text-sm font-medium text-red-600 hover:bg-red-50"
                 >

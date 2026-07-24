@@ -5,7 +5,8 @@ import { ProductCard } from '@/components/product/ProductCard'
 import { getProductById } from '@/data/catalog'
 import { useCartStore } from '@/store/cartStore'
 import { useQueryClient } from '@tanstack/react-query'
-import { useProfile, setAuthToken, authKeys } from '@/api/auth'
+import { setAuthToken, authKeys } from '@/api/auth'
+import { useRole } from '@/hooks/useRole'
 import { Login } from './Auth/Login'
 import { Register } from './Auth/Register'
 import { cn } from '@/lib/cn'
@@ -36,7 +37,7 @@ export default function Account() {
   }
   
   const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
-  const { data: profile, isLoading, refetch } = useProfile();
+  const { profile, isLoading, isAuthenticated, isAdmin, refetch } = useRole();
 
   const addresses = useCartStore((s) => s.addresses)
   const wishlistIds = useCartStore((s) => s.wishlistIds)
@@ -53,7 +54,7 @@ export default function Account() {
     return <div className="p-12 text-center font-body text-foreground-500">Loading profile...</div>;
   }
 
-  if (!profile) {
+  if (!isAuthenticated || !profile) {
     return (
       <div className="relative flex min-h-[calc(100vh-80px)] w-full flex-col lg:flex-row">
         {/* Image Background (Full screen on mobile, left half on desktop) */}
@@ -103,7 +104,7 @@ export default function Account() {
     )
   }
 
-  if (profile.role === 'admin' || profile.role === 'staff') {
+  if (isAdmin) {
     return <Navigate to="/admin" replace />
   }
 

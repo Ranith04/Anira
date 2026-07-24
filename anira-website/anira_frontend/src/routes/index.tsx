@@ -3,6 +3,7 @@ import { lazy, Suspense } from 'react'
 import { MainLayout } from '@/components/layout/MainLayout'
 import { AdminLayout } from '@/components/admin/layout/AdminLayout'
 import { AdminGuard } from '@/components/admin/layout/AdminGuard'
+import { CustomerGuard } from '@/components/auth/CustomerGuard'
 
 const Home = lazy(() => import('@/pages/Home'))
 const CategoryListing = lazy(() => import('@/pages/CategoryListing'))
@@ -35,8 +36,6 @@ export const AppRoutes = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/search" element={<Search />} />
           <Route path="/account" element={<Account />} />
-          <Route path="/orders" element={<Orders />} />
-          <Route path="/orders/:id" element={<OrderDetail />} />
           <Route path="/size-guide" element={<SizeGuide />} />
           <Route path="/shipping-returns" element={<ShippingReturns />} />
           <Route path="/category/:slug" element={<CategoryListing type="category" />} />
@@ -44,7 +43,12 @@ export const AppRoutes = () => {
           <Route path="/collection/:slug" element={<CategoryListing type="collection" />} />
           <Route path="/product/:slug" element={<ProductDetail />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout />} />
+          
+          <Route element={<CustomerGuard />}>
+            <Route path="/orders" element={<Orders />} />
+            <Route path="/orders/:id" element={<OrderDetail />} />
+            <Route path="/checkout" element={<Checkout />} />
+          </Route>
         </Route>
         
         <Route path="/admin">
