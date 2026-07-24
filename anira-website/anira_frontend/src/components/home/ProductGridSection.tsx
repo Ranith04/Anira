@@ -36,21 +36,26 @@ export function ProductGridSection({
         align="left"
         titleBreak
       />
-      <ShopNowButton href={ctaHref} />
+      <div className="mt-4 md:mt-6">
+        <ShopNowButton href={ctaHref} />
+      </div>
     </div>
   )
 
   const gridBlock = (
     <div
       className={cn(
-        'lg:col-span-4',
-        'grid grid-cols-2 gap-4 md:gap-5',
+        'lg:col-span-4 min-w-0',
+        'flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-4 px-4 hide-scrollbar',
+        'md:mx-0 md:px-0 md:pb-0 md:grid md:overflow-x-visible md:snap-none md:gap-5',
         columns === 4 ? 'md:grid-cols-4' : 'md:grid-cols-3',
         rail === 'right' && 'order-2 lg:order-1',
       )}
     >
       {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
+        <div key={product.id} className="min-w-[75vw] snap-center sm:min-w-[45vw] md:min-w-0 md:w-auto shrink-0">
+          <ProductCard product={product} />
+        </div>
       ))}
     </div>
   )
@@ -58,12 +63,12 @@ export function ProductGridSection({
   return (
     <section
       className={cn(
-        'w-full py-12 md:py-16 lg:py-20',
+        'w-full py-8 md:py-16 lg:py-20 overflow-hidden',
         background === '50' ? 'bg-background-50' : 'bg-background-100',
       )}
     >
       <div className="w-full px-4 md:px-8 lg:px-12">
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-5 lg:gap-8">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-5 lg:gap-8">
           {rail === 'left' ? (
             <>
               {railBlock}
@@ -80,7 +85,9 @@ export function ProductGridSection({
                   align="left"
                   titleBreak
                 />
-                <ShopNowButton href={ctaHref} />
+                <div className="mt-4 md:mt-6">
+                  <ShopNowButton href={ctaHref} />
+                </div>
               </div>
             </>
           )}

@@ -4,7 +4,8 @@ import { Heart, MapPin, Package, User } from 'lucide-react'
 import { ProductCard } from '@/components/product/ProductCard'
 import { getProductById } from '@/data/catalog'
 import { useCartStore } from '@/store/cartStore'
-import { useProfile, setAuthToken } from '@/api/auth'
+import { useQueryClient } from '@tanstack/react-query'
+import { useProfile, setAuthToken, authKeys } from '@/api/auth'
 import { Login } from './Auth/Login'
 import { Register } from './Auth/Register'
 import { cn } from '@/lib/cn'
@@ -24,6 +25,7 @@ function isTab(value: string | null): value is Tab {
 }
 
 export default function Account() {
+  const queryClient = useQueryClient();
   const [params, setParams] = useSearchParams()
   const tabParam = params.get('tab')
   const tab: Tab = isTab(tabParam) ? tabParam : 'overview'
@@ -67,7 +69,10 @@ export default function Account() {
       <div className="flex justify-between items-center mb-2">
         <p className="font-body text-xs uppercase tracking-[0.22em] text-foreground-500">Account</p>
         <button 
-          onClick={() => { setAuthToken(''); refetch(); }}
+          onClick={() => { 
+            setAuthToken(''); 
+            queryClient.removeQueries({ queryKey: authKeys.all }); 
+          }}
           className="font-body text-xs text-primary-500 hover:underline"
         >
           Sign Out

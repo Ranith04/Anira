@@ -47,9 +47,10 @@
 }
 
 @layer base {
-  body {
-    @apply font-body bg-background-50 text-foreground-900 antialiased;
+  html, body {
+    @apply font-body bg-background-50 text-foreground-900 antialiased overflow-x-hidden;
   }
+
 
   h1,
   h2,
@@ -65,7 +66,7 @@
 @layer utilities {
   .scroll-reveal {
     opacity: 0;
-    transform: translate3d(0, 28px, 0);
+    transform: translateY(28px);
     transition:
       opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
       transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
@@ -73,7 +74,7 @@
 
   .scroll-reveal.is-inview {
     opacity: 1;
-    transform: translate3d(0, 0, 0);
+    transform: none;
   }
 }
 

@@ -58,42 +58,51 @@ export const NAV_LINKS: NavLink[] = [
 ]
 
 /** Unified shop dashboard — category + occasion in one curated grid */
-export const SHOP_RANGE_TILES: ShopRangeTile[] = [
+export const SAREE_RANGE_TILES: ShopRangeTile[] = [
   {
-    id: 'range-designer-sarees',
+    id: 'saree-designer',
     name: 'Designer Sarees',
-    subtitle: 'Signature Edit',
+    subtitle: 'Signature Weaves & Craft',
     image: PHOTOS.collections.nirvi,
     href: '/category/sarees?type=designer',
-    featured: true,
   },
   {
-    id: 'range-party',
+    id: 'saree-party',
     name: 'Party Wear',
-    subtitle: 'Evening Edit',
+    subtitle: 'Evening-Ready Drapes',
     image: PHOTOS.collections.shriya,
     href: '/category/sarees?type=party',
   },
   {
-    id: 'range-festive-kurtas',
+    id: 'saree-work',
+    name: 'Work Sarees',
+    subtitle: 'Everyday Polished Drapes',
+    image: PHOTOS.categories.sarees, // Using work sarees photo
+    href: '/category/sarees?type=work',
+  },
+]
+
+export const KURTA_RANGE_TILES: ShopRangeTile[] = [
+  {
+    id: 'kurta-festive',
     name: 'Festive Kurtas',
     subtitle: 'Celebration Ready',
     image: PHOTOS.products.aadhira1,
     href: '/category/kurtas?type=festive',
   },
   {
-    id: 'range-daily-kurtas',
+    id: 'kurta-daily',
     name: 'Daily Wear Kurtas',
-    subtitle: 'Everyday Ease',
+    subtitle: 'Daily Wear',
     image: PHOTOS.categories.kurtas,
     href: '/category/kurtas?type=daily',
   },
   {
-    id: 'range-office',
+    id: 'kurta-office',
     name: 'Office Wear',
-    subtitle: 'Workday Grace',
+    subtitle: 'Office Wear',
     image: PHOTOS.products.sairaSilk,
-    href: '/category/kurtas?type=daily',
+    href: '/category/kurtas?type=daily', // Assuming same category for now
   },
 ]
 
