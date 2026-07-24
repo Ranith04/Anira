@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("anira_backend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0cfde53d22ff7c118b0fe8804444b9e82acd2f01")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b6b3eef0c230693ede79d9b4bd8c9e16ff052a8d")]
 [assembly: System.Reflection.AssemblyProductAttribute("anira_backend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("anira_backend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

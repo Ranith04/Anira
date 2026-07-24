@@ -94,7 +94,7 @@ export function ShopRange() {
       {/* Kurtas Section */}
       <section className="w-full bg-background-100 py-10 md:py-16 lg:py-20">
         <div className="w-full px-4 md:px-8 lg:px-12">
-          <SectionHeading overline="Comfortable & Chic" title="Daily Wear" highlight="Kurtas" />
+          <SectionHeading overline="Elegant & Versatile" title="Designer" highlight="Kurtas" />
           
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 lg:gap-6 mt-8 md:mt-12">
             {KURTA_RANGE_TILES.map((tile) => (

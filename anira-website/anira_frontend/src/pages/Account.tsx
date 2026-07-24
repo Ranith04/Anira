@@ -104,87 +104,94 @@ export default function Account() {
   }
 
   return (
-    <div className="w-full bg-background-50 px-4 py-10 md:px-8 md:py-14 lg:px-12">
-      <div className="flex justify-between items-center mb-2">
-        <p className="font-body text-xs uppercase tracking-[0.22em] text-foreground-500">Account</p>
-        <button 
-          onClick={() => { 
-            setAuthToken(''); 
-            queryClient.removeQueries({ queryKey: authKeys.all }); 
-          }}
-          className="font-body text-xs text-primary-500 hover:underline"
-        >
-          Sign Out
-        </button>
-      </div>
-      <h1 className="font-heading text-3xl font-semibold text-foreground-900 md:text-4xl">
-        Welcome back, {profile.name?.split(' ')[0] || profile.fullName?.split(' ')[0]}
-      </h1>
-      <p className="mt-2 max-w-xl font-body text-sm text-foreground-500">
-        Manage your profile, addresses, and wishlist — your ANIRA edit, saved locally for now.
-      </p>
-
-      <div className="mt-8 flex flex-wrap gap-2 border-b border-primary-500/10 pb-4">
-        {TABS.map(({ id, label, icon: Icon }) => (
-          <button
-            key={id}
-            type="button"
-            onClick={() => selectTab(id)}
-            className={cn(
-              'inline-flex items-center gap-2 rounded-full px-4 py-2 font-body text-sm transition-colors',
-              tab === id
-                ? 'bg-primary-500 text-background-50'
-                : 'border border-primary-500/15 text-foreground-700 hover:border-primary-500/30 hover:text-primary-500',
-            )}
-          >
-            <Icon className="size-3.5" />
-            {label}
-          </button>
-        ))}
-      </div>
-
-      <div className="mt-8">
-        {tab === 'overview' && (
-          <Overview
-            name={profile.name || profile.fullName}
-            orderCount={orders.length}
-            wishlistCount={wishlistIds.length}
-            addressCount={addresses.length}
-            onGo={selectTab}
-          />
-        )}
-        {tab === 'profile' && (
-          <ProfileForm
-            initial={{ name: profile.fullName || profile.name, email: profile.email, phone: profile.phone || '' }}
-            onSave={(next) => {
-              // Real API integration goes here later
-            }}
-          />
-        )}
-        {tab === 'addresses' && (
-          <AddressesPanel
-            addresses={addresses}
-            onSave={upsertAddress}
-            onRemove={removeAddress}
-          />
-        )}
-        {tab === 'wishlist' && (
+    <div className="min-h-[calc(100vh-80px)] w-full bg-background-50">
+      {/* Premium Header */}
+      <div className="w-full border-b border-primary-500/10 bg-white px-4 py-8 md:px-8 md:py-12 lg:px-12">
+        <div className="mx-auto flex max-w-6xl flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
-            {wishlistProducts.length === 0 ? (
-              <EmptyPanel
-                title="Wishlist is empty"
-                body="Tap the heart on a saree or kurta to save it here."
-                cta={{ to: '/category/sarees', label: 'Browse Sarees' }}
-              />
-            ) : (
-              <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6 lg:grid-cols-4">
-                {wishlistProducts.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
-            )}
+            <p className="mb-2 font-body text-xs uppercase tracking-[0.22em] text-foreground-500">My Account</p>
+            <h1 className="font-heading text-3xl font-semibold text-foreground-900 md:text-4xl lg:text-5xl">
+              Welcome back, {profile.name?.split(' ')[0] || profile.fullName?.split(' ')[0]}
+            </h1>
+            <p className="mt-3 max-w-xl font-body text-sm text-foreground-500">
+              Manage your profile, addresses, and wishlist — your ANIRA edit, saved locally for now.
+            </p>
           </div>
-        )}
+          <button
+            onClick={() => {
+              setAuthToken('')
+              queryClient.setQueryData(authKeys.profile(), null)
+            }}
+            className="inline-flex w-fit items-center gap-2 rounded-full border border-primary-500/20 bg-background-50 px-6 py-2.5 font-body text-sm font-medium text-primary-500 transition-colors hover:bg-primary-500 hover:text-white"
+          >
+            Sign Out
+          </button>
+        </div>
+      </div>
+
+      <div className="mx-auto max-w-6xl px-4 py-8 md:px-8 lg:px-12">
+        {/* Sleek Tab Navigation */}
+        <div className="hide-scrollbar mb-10 flex overflow-x-auto border-b border-primary-500/10 pb-4">
+          <div className="flex gap-2">
+            {TABS.map(({ id, label, icon: Icon }) => (
+              <button
+                key={id}
+                type="button"
+                onClick={() => selectTab(id)}
+                className={cn(
+                  'inline-flex whitespace-nowrap items-center gap-2 rounded-full px-5 py-2.5 font-body text-sm font-medium transition-all',
+                  tab === id
+                    ? 'bg-primary-500 text-white shadow-md'
+                    : 'text-foreground-600 hover:bg-white hover:text-primary-500',
+                )}
+              >
+                <Icon className="size-4" />
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Content Area */}
+        <div className="pb-20">
+          {tab === 'overview' && (
+            <Overview
+              name={profile.name || profile.fullName}
+              orderCount={orders.length}
+              wishlistCount={wishlistIds.length}
+              addressCount={addresses.length}
+              onGo={selectTab}
+            />
+          )}
+          {tab === 'profile' && (
+            <ProfileForm
+              initial={{ name: profile.fullName || profile.name, email: profile.email, phone: profile.phone || '' }}
+              onSave={(next) => {
+                // Real API integration goes here later
+              }}
+            />
+          )}
+          {tab === 'addresses' && (
+            <AddressesPanel addresses={addresses} onSave={upsertAddress} onRemove={removeAddress} />
+          )}
+          {tab === 'wishlist' && (
+            <div>
+              {wishlistProducts.length === 0 ? (
+                <EmptyPanel
+                  title="Wishlist is empty"
+                  body="Tap the heart on a saree or kurta to save it here."
+                  cta={{ to: '/category/sarees', label: 'Browse Sarees' }}
+                />
+              ) : (
+                <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6 lg:grid-cols-4">
+                  {wishlistProducts.map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )
@@ -204,18 +211,18 @@ function Overview({
   onGo: (t: Tab) => void
 }) {
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-      <div className="rounded-2xl border border-primary-500/10 bg-background-100 p-6 md:col-span-2 lg:col-span-3">
-        <p className="font-heading text-2xl font-semibold text-foreground-900">
+    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="rounded-3xl border border-primary-500/5 bg-white p-8 shadow-sm md:col-span-2 lg:col-span-3">
+        <p className="font-heading text-2xl font-semibold text-foreground-900 md:text-3xl">
           Hello, {name}
         </p>
-        <p className="mt-1 font-body text-sm text-foreground-500">
+        <p className="mt-2 font-body text-sm text-foreground-500">
           Signed in as a demo guest. Changes stay on this device.
         </p>
-        <div className="mt-5 flex flex-wrap gap-3">
+        <div className="mt-6 flex flex-wrap gap-4">
           <Link
             to="/orders"
-            className="inline-flex items-center gap-2 rounded-full bg-primary-500 px-5 py-2.5 font-body text-sm font-medium text-background-50"
+            className="inline-flex items-center gap-2 rounded-full bg-primary-500 px-6 py-3 font-body text-sm font-medium text-white shadow-sm transition-colors hover:bg-primary-600"
           >
             <Package className="size-4" />
             View Orders
@@ -223,7 +230,7 @@ function Overview({
           <button
             type="button"
             onClick={() => onGo('wishlist')}
-            className="rounded-full border border-primary-500/20 px-5 py-2.5 font-body text-sm font-medium text-primary-500"
+            className="rounded-full border border-primary-500/20 bg-background-50 px-6 py-3 font-body text-sm font-medium text-primary-500 transition-colors hover:bg-primary-50"
           >
             Wishlist ({wishlistCount})
           </button>
@@ -239,24 +246,28 @@ function Overview({
           <Link
             key={card.label}
             to={card.to}
-            className="rounded-2xl border border-primary-500/10 bg-background-100 p-5 transition-colors hover:border-primary-500/25"
+            className="group rounded-3xl border border-primary-500/5 bg-white p-6 shadow-sm transition-all hover:border-primary-500/20 hover:shadow-md"
           >
             <p className="font-body text-xs uppercase tracking-[0.16em] text-foreground-500">
               {card.label}
             </p>
-            <p className="mt-2 font-heading text-3xl font-semibold text-primary-500">{card.value}</p>
+            <p className="mt-3 font-heading text-4xl font-semibold text-primary-500 transition-colors group-hover:text-primary-600">
+              {card.value}
+            </p>
           </Link>
         ) : (
           <button
             key={card.label}
             type="button"
             onClick={card.action}
-            className="rounded-2xl border border-primary-500/10 bg-background-100 p-5 text-left transition-colors hover:border-primary-500/25"
+            className="group rounded-3xl border border-primary-500/5 bg-white p-6 text-left shadow-sm transition-all hover:border-primary-500/20 hover:shadow-md"
           >
             <p className="font-body text-xs uppercase tracking-[0.16em] text-foreground-500">
               {card.label}
             </p>
-            <p className="mt-2 font-heading text-3xl font-semibold text-primary-500">{card.value}</p>
+            <p className="mt-3 font-heading text-4xl font-semibold text-primary-500 transition-colors group-hover:text-primary-600">
+              {card.value}
+            </p>
           </button>
         ),
       )}
@@ -284,24 +295,24 @@ function ProfileForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="max-w-lg rounded-2xl border border-primary-500/10 bg-background-100 p-6"
+      className="max-w-xl rounded-3xl border border-primary-500/5 bg-white p-8 shadow-sm"
     >
-      <h2 className="font-heading text-xl font-semibold text-foreground-900">Profile details</h2>
-      <div className="mt-5 space-y-3">
+      <h2 className="font-heading text-2xl font-semibold text-foreground-900">Profile Details</h2>
+      <div className="mt-6 space-y-5">
         <Field label="Full name" value={form.name} onChange={(v) => setForm((f) => ({ ...f, name: v }))} />
         <Field
-          label="Email"
+          label="Email Address"
           type="email"
           value={form.email}
           onChange={(v) => setForm((f) => ({ ...f, email: v }))}
         />
-        <Field label="Phone" value={form.phone} onChange={(v) => setForm((f) => ({ ...f, phone: v }))} />
+        <Field label="Phone Number" value={form.phone} onChange={(v) => setForm((f) => ({ ...f, phone: v }))} />
       </div>
       <button
         type="submit"
-        className="mt-6 rounded-full bg-primary-500 px-6 py-2.5 font-body text-sm font-medium text-background-50"
+        className="mt-8 rounded-full bg-primary-500 px-8 py-3.5 font-body text-sm font-medium text-white shadow-sm transition-colors hover:bg-primary-600"
       >
-        {saved ? 'Saved' : 'Save changes'}
+        {saved ? 'Saved Successfully' : 'Save Changes'}
       </button>
     </form>
   )
@@ -321,7 +332,7 @@ function AddressesPanel({
 
   const blank = (): Address => ({
     id: `addr-${Date.now()}`,
-    label: 'Other',
+    label: 'Home',
     name: '',
     phone: '',
     line1: '',
@@ -333,66 +344,72 @@ function AddressesPanel({
   })
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between gap-3">
-        <h2 className="font-heading text-xl font-semibold text-foreground-900">Saved addresses</h2>
+    <div className="space-y-6">
+      <div className="flex items-center justify-between gap-4">
+        <h2 className="font-heading text-2xl font-semibold text-foreground-900">Saved Addresses</h2>
         <button
           type="button"
           onClick={() => {
             setCreating(true)
             setEditing(blank())
           }}
-          className="rounded-full border border-primary-500/20 px-4 py-2 font-body text-sm font-medium text-primary-500"
+          className="rounded-full bg-primary-500 px-6 py-2.5 font-body text-sm font-medium text-white shadow-sm transition-colors hover:bg-primary-600"
         >
-          Add address
+          Add New Address
         </button>
       </div>
 
       {addresses.length === 0 && !creating && (
-        <EmptyPanel title="No addresses yet" body="Add a shipping address for faster checkout." />
+        <EmptyPanel title="No addresses yet" body="Add a shipping address for a faster checkout experience." />
       )}
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-6 md:grid-cols-2">
         {addresses.map((addr) => (
           <div
             key={addr.id}
-            className="rounded-2xl border border-primary-500/10 bg-background-100 p-5"
+            className="rounded-3xl border border-primary-500/5 bg-white p-7 shadow-sm transition-shadow hover:shadow-md"
           >
-            <div className="flex items-start justify-between gap-3">
+            <div className="flex items-start justify-between gap-3 border-b border-primary-500/5 pb-4">
               <div>
-                <p className="font-body text-xs uppercase tracking-[0.16em] text-accent-600">
-                  {addr.label}
-                  {addr.isDefault ? ' · Default' : ''}
-                </p>
-                <p className="mt-1 font-heading text-lg font-semibold text-foreground-900">{addr.name}</p>
+                <div className="flex items-center gap-2">
+                  <p className="font-body text-xs uppercase tracking-[0.16em] text-accent-600">
+                    {addr.label}
+                  </p>
+                  {addr.isDefault && (
+                    <span className="rounded-full bg-primary-50 px-2 py-0.5 font-body text-[10px] uppercase tracking-wider text-primary-500">
+                      Default
+                    </span>
+                  )}
+                </div>
+                <p className="mt-1.5 font-heading text-xl font-semibold text-foreground-900">{addr.name}</p>
               </div>
-              <div className="flex gap-2">
+              <div className="flex gap-3">
                 <button
                   type="button"
                   onClick={() => {
                     setCreating(false)
                     setEditing(addr)
                   }}
-                  className="font-body text-xs text-primary-500"
+                  className="font-body text-sm font-medium text-primary-500 hover:underline"
                 >
                   Edit
                 </button>
                 <button
                   type="button"
                   onClick={() => onRemove(addr.id)}
-                  className="font-body text-xs text-foreground-400 hover:text-primary-500"
+                  className="font-body text-sm text-foreground-400 hover:text-red-500"
                 >
                   Remove
                 </button>
               </div>
             </div>
-            <p className="mt-2 font-body text-sm text-foreground-600">
+            <p className="mt-4 font-body text-sm leading-relaxed text-foreground-600">
               {addr.line1}
               {addr.line2 ? `, ${addr.line2}` : ''}
               <br />
               {addr.city}, {addr.state} {addr.pincode}
               <br />
-              {addr.phone}
+              <span className="mt-2 block text-foreground-900">{addr.phone}</span>
             </p>
           </div>
         ))}
@@ -432,58 +449,65 @@ function AddressForm({
 
   return (
     <form
-      className="rounded-2xl border border-primary-500/10 bg-background-100 p-6"
+      className="mt-8 max-w-3xl rounded-3xl border border-primary-500/5 bg-white p-8 shadow-sm"
       onSubmit={(e) => {
         e.preventDefault()
         onSubmit(form)
       }}
     >
-      <h3 className="font-heading text-lg font-semibold text-foreground-900">
-        {isNew ? 'Add address' : 'Edit address'}
+      <h3 className="font-heading text-2xl font-semibold text-foreground-900">
+        {isNew ? 'Add New Address' : 'Edit Address'}
       </h3>
-      <div className="mt-4 grid gap-3 sm:grid-cols-2">
-        <Field label="Label" value={form.label} onChange={(v) => setForm((f) => ({ ...f, label: v }))} />
-        <Field label="Name" value={form.name} onChange={(v) => setForm((f) => ({ ...f, name: v }))} required />
+      <div className="mt-6 grid gap-5 sm:grid-cols-2">
+        <Field label="Label (e.g. Home, Work)" value={form.label} onChange={(v) => setForm((f) => ({ ...f, label: v }))} />
+        <Field label="Full Name" value={form.name} onChange={(v) => setForm((f) => ({ ...f, name: v }))} required />
         <div className="sm:col-span-2">
-          <Field label="Line 1" value={form.line1} onChange={(v) => setForm((f) => ({ ...f, line1: v }))} required />
+          <Field label="Street Address" value={form.line1} onChange={(v) => setForm((f) => ({ ...f, line1: v }))} required />
         </div>
         <div className="sm:col-span-2">
           <Field
-            label="Line 2"
+            label="Apartment, suite, etc. (optional)"
             value={form.line2 ?? ''}
             onChange={(v) => setForm((f) => ({ ...f, line2: v }))}
           />
         </div>
         <Field label="City" value={form.city} onChange={(v) => setForm((f) => ({ ...f, city: v }))} required />
-        <Field label="State" value={form.state} onChange={(v) => setForm((f) => ({ ...f, state: v }))} required />
+        <Field label="State / Province" value={form.state} onChange={(v) => setForm((f) => ({ ...f, state: v }))} required />
         <Field
-          label="Pincode"
+          label="Postal / PIN Code"
           value={form.pincode}
           onChange={(v) => setForm((f) => ({ ...f, pincode: v }))}
           required
         />
-        <Field label="Phone" value={form.phone} onChange={(v) => setForm((f) => ({ ...f, phone: v }))} required />
+        <Field label="Phone Number" value={form.phone} onChange={(v) => setForm((f) => ({ ...f, phone: v }))} required />
       </div>
-      <label className="mt-4 flex items-center gap-2 font-body text-sm text-foreground-700">
-        <input
-          type="checkbox"
-          checked={Boolean(form.isDefault)}
-          onChange={(e) => setForm((f) => ({ ...f, isDefault: e.target.checked }))}
-          className="accent-[oklch(0.42_0.15_15)]"
-        />
-        Set as default
+      
+      <label className="mt-6 flex cursor-pointer items-center gap-3 font-body text-sm text-foreground-700">
+        <div className="relative flex items-center">
+          <input
+            type="checkbox"
+            checked={Boolean(form.isDefault)}
+            onChange={(e) => setForm((f) => ({ ...f, isDefault: e.target.checked }))}
+            className="peer size-5 cursor-pointer appearance-none rounded border border-primary-500/30 transition-all checked:border-primary-500 checked:bg-primary-500"
+          />
+          <svg className="pointer-events-none absolute left-1/2 top-1/2 size-3.5 -translate-x-1/2 -translate-y-1/2 text-white opacity-0 transition-opacity peer-checked:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+        Set as default shipping address
       </label>
-      <div className="mt-5 flex gap-3">
+
+      <div className="mt-8 flex flex-wrap gap-4 border-t border-primary-500/10 pt-6">
         <button
           type="submit"
-          className="rounded-full bg-primary-500 px-5 py-2.5 font-body text-sm font-medium text-background-50"
+          className="rounded-full bg-primary-500 px-8 py-3.5 font-body text-sm font-medium text-white shadow-sm transition-colors hover:bg-primary-600"
         >
-          Save
+          Save Address
         </button>
         <button
           type="button"
           onClick={onCancel}
-          className="rounded-full border border-primary-500/20 px-5 py-2.5 font-body text-sm text-foreground-700"
+          className="rounded-full border border-primary-500/20 px-8 py-3.5 font-body text-sm font-medium text-foreground-700 transition-colors hover:bg-background-50"
         >
           Cancel
         </button>
@@ -502,13 +526,13 @@ function EmptyPanel({
   cta?: { to: string; label: string }
 }) {
   return (
-    <div className="rounded-2xl border border-primary-500/10 bg-background-100 px-6 py-14 text-center">
-      <p className="font-heading text-xl font-semibold text-foreground-900">{title}</p>
-      <p className="mx-auto mt-2 max-w-md font-body text-sm text-foreground-500">{body}</p>
+    <div className="rounded-3xl border border-primary-500/5 bg-white px-6 py-16 text-center shadow-sm">
+      <p className="font-heading text-2xl font-semibold text-foreground-900">{title}</p>
+      <p className="mx-auto mt-3 max-w-md font-body text-sm leading-relaxed text-foreground-500">{body}</p>
       {cta && (
         <Link
           to={cta.to}
-          className="mt-6 inline-flex rounded-full bg-primary-500 px-5 py-2.5 font-body text-sm font-medium text-background-50"
+          className="mt-8 inline-flex rounded-full bg-primary-500 px-8 py-3.5 font-body text-sm font-medium text-white shadow-sm transition-colors hover:bg-primary-600"
         >
           {cta.label}
         </Link>
@@ -531,8 +555,8 @@ function Field({
   type?: string
 }) {
   return (
-    <label className="block">
-      <span className="mb-1.5 block font-body text-xs uppercase tracking-wide text-foreground-500">
+    <label className="block w-full">
+      <span className="mb-2 block font-body text-xs uppercase tracking-wide text-foreground-500">
         {label}
       </span>
       <input
@@ -540,7 +564,7 @@ function Field({
         required={required}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded-xl border border-primary-500/15 bg-background-50 px-4 py-3 font-body text-sm text-foreground-900 outline-none transition-colors focus:border-primary-500"
+        className="w-full rounded-xl border border-primary-500/15 bg-white px-4 py-3.5 font-body text-sm text-foreground-900 shadow-[0_2px_10px_-3px_rgba(0,0,0,0.05)] outline-none transition-all placeholder:text-foreground-300 focus:border-primary-500 focus:ring-1 focus:ring-primary-500"
       />
     </label>
   )

@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router'
 import { ChevronDown, Menu, Search, ShoppingBag, User, X } from 'lucide-react'
 import { NAV_LINKS } from '@/data/homeData'
 import { useCartStore } from '@/store/cartStore'
+import { useQueryClient } from '@tanstack/react-query'
+import { useProfile, setAuthToken, authKeys } from '@/api/auth'
 import { cn } from '@/lib/cn'
 import type { NavLink as NavLinkType } from '@/types'
 
@@ -247,6 +249,175 @@ function MobileNavItem({
   )
 }
 
+function AccountDropdown() {
+  const [open, setOpen] = useState(false)
+  const closeTimer = useRef<number | null>(null)
+  const panelId = useId()
+  const { data: profile } = useProfile()
+  const queryClient = useQueryClient()
+
+  const clearClose = () => {
+    if (closeTimer.current) {
+      window.clearTimeout(closeTimer.current)
+      closeTimer.current = null
+    }
+  }
+
+  const scheduleClose = () => {
+    clearClose()
+    closeTimer.current = window.setTimeout(() => setOpen(false), 200)
+  }
+
+  useEffect(() => () => clearClose(), [])
+
+  return (
+    <div
+      className="relative hidden h-full items-center sm:flex"
+      onMouseEnter={() => {
+        clearClose()
+        setOpen(true)
+      }}
+      onMouseLeave={scheduleClose}
+      onFocus={() => {
+        clearClose()
+        setOpen(true)
+      }}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget)) setOpen(false)
+      }}
+    >
+      <Link
+        to="/account"
+        aria-label="Account"
+        aria-expanded={open}
+        aria-controls={panelId}
+        className={cn(
+          'flex size-9 items-center justify-center transition-colors',
+          open ? 'text-primary-500' : 'text-foreground-700 hover:text-primary-500',
+        )}
+      >
+        <User className="size-[18px]" />
+      </Link>
+
+      <div
+        id={panelId}
+        className={cn(
+          'absolute right-0 top-full z-50 w-[280px] pt-4 transition-all duration-300',
+          open
+            ? 'pointer-events-auto translate-y-0 opacity-100'
+            : 'pointer-events-none -translate-y-2 opacity-0',
+        )}
+      >
+        <div className="overflow-hidden rounded-2xl border border-primary-500/10 bg-white shadow-[0_20px_60px_-15px_rgba(90,30,40,0.15)] ring-1 ring-black/5">
+          {profile ? (
+            <>
+              <div className="border-b border-primary-500/10 bg-background-50 px-5 py-4">
+                <p className="font-heading text-lg font-semibold text-foreground-900">
+                  Hello, {profile.name?.split(' ')[0] || profile.fullName?.split(' ')[0]}
+                </p>
+                {profile.phone && (
+                  <p className="mt-0.5 font-body text-xs text-foreground-500">{profile.phone}</p>
+                )}
+              </div>
+              <div className="py-2">
+                <Link
+                  to="/orders"
+                  onClick={() => setOpen(false)}
+                  className="block px-5 py-2.5 font-body text-sm font-medium text-foreground-700 hover:bg-background-50 hover:text-primary-500"
+                >
+                  Orders
+                </Link>
+                <Link
+                  to="/account?tab=wishlist"
+                  onClick={() => setOpen(false)}
+                  className="block px-5 py-2.5 font-body text-sm font-medium text-foreground-700 hover:bg-background-50 hover:text-primary-500"
+                >
+                  Wishlist
+                </Link>
+                <Link
+                  to="/contact"
+                  onClick={() => setOpen(false)}
+                  className="block px-5 py-2.5 font-body text-sm font-medium text-foreground-700 hover:bg-background-50 hover:text-primary-500"
+                >
+                  Contact Us
+                </Link>
+              </div>
+              <div className="border-t border-primary-500/10 py-2">
+                <Link
+                  to="/account?tab=addresses"
+                  onClick={() => setOpen(false)}
+                  className="block px-5 py-2.5 font-body text-sm font-medium text-foreground-700 hover:bg-background-50 hover:text-primary-500"
+                >
+                  Saved Addresses
+                </Link>
+                <Link
+                  to="/account?tab=profile"
+                  onClick={() => setOpen(false)}
+                  className="block px-5 py-2.5 font-body text-sm font-medium text-foreground-700 hover:bg-background-50 hover:text-primary-500"
+                >
+                  Edit Profile
+                </Link>
+              </div>
+              <div className="border-t border-primary-500/10 py-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setAuthToken('')
+                    queryClient.setQueryData(authKeys.profile(), null)
+                    setOpen(false)
+                  }}
+                  className="w-full px-5 py-2.5 text-left font-body text-sm font-medium text-red-600 hover:bg-red-50"
+                >
+                  Logout
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="border-b border-primary-500/10 px-6 py-6 text-center">
+                <h3 className="font-heading text-xl font-semibold text-foreground-900">Welcome</h3>
+                <p className="mt-1 font-body text-xs text-foreground-500">
+                  To access account and manage orders
+                </p>
+                <Link
+                  to="/account"
+                  onClick={() => setOpen(false)}
+                  className="mt-4 flex w-full items-center justify-center rounded-full border-2 border-primary-500 px-6 py-2.5 font-body text-sm font-medium text-primary-500 transition-colors hover:bg-primary-500 hover:text-white"
+                >
+                  Login / Signup
+                </Link>
+              </div>
+              <div className="py-2">
+                <Link
+                  to="/account"
+                  onClick={() => setOpen(false)}
+                  className="block px-5 py-2.5 font-body text-sm font-medium text-foreground-700 hover:bg-background-50 hover:text-primary-500"
+                >
+                  Orders
+                </Link>
+                <Link
+                  to="/account"
+                  onClick={() => setOpen(false)}
+                  className="block px-5 py-2.5 font-body text-sm font-medium text-foreground-700 hover:bg-background-50 hover:text-primary-500"
+                >
+                  Wishlist
+                </Link>
+                <Link
+                  to="/account"
+                  onClick={() => setOpen(false)}
+                  className="block px-5 py-2.5 font-body text-sm font-medium text-foreground-700 hover:bg-background-50 hover:text-primary-500"
+                >
+                  Contact Us
+                </Link>
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -309,13 +480,7 @@ export function Header() {
               >
                 <Search className="size-[18px]" />
               </button>
-              <Link
-                to="/account"
-                aria-label="Account"
-                className="hidden size-9 items-center justify-center text-foreground-700 transition-colors hover:text-primary-500 sm:flex"
-              >
-                <User className="size-[18px]" />
-              </Link>
+              <AccountDropdown />
               <Link
                 to="/cart"
                 aria-label="Cart"

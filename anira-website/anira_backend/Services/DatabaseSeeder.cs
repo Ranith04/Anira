@@ -86,6 +86,18 @@ public class DatabaseSeeder
                 new { Id = demoUserId, Hash = passwordHash });
         }
 
+        var adminUserExists = await conn.ExecuteScalarAsync<int>("SELECT COUNT(1) FROM users WHERE email = 'admin@anirastudio.com'");
+        if (adminUserExists == 0)
+        {
+            var adminUserId = Guid.NewGuid();
+            var adminPasswordHash = BCrypt.Net.BCrypt.HashPassword("admin123");
+            await conn.ExecuteAsync(@"
+                INSERT INTO users (id, email, phone, password_hash, full_name, role, is_email_verified, is_active)
+                VALUES (@Id, 'admin@anirastudio.com', '+910000000000', @Hash, 'Anira Admin', 'admin', true, true)
+                ON CONFLICT DO NOTHING;",
+                new { Id = adminUserId, Hash = adminPasswordHash });
+        }
+
         // Check if categories already exist
         var count = await conn.ExecuteScalarAsync<int>("SELECT COUNT(1) FROM categories");
         if (count > 0)
