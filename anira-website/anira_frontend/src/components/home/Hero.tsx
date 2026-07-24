@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { PHOTOS } from '@/data/photos'
 import { cn } from '@/lib/cn'
 
@@ -10,11 +11,12 @@ export function Hero() {
   const [active, setActive] = useState(0)
   const [paused, setPaused] = useState(false)
 
+  const goNext = () => setActive((prev) => (prev + 1) % slides.length)
+  const goPrev = () => setActive((prev) => (prev - 1 + slides.length) % slides.length)
+
   useEffect(() => {
     if (paused || slides.length <= 1) return
-    const id = window.setInterval(() => {
-      setActive((prev) => (prev + 1) % slides.length)
-    }, SLIDE_MS)
+    const id = window.setInterval(goNext, SLIDE_MS)
     return () => window.clearInterval(id)
   }, [paused, slides.length])
 
@@ -80,22 +82,41 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2 md:bottom-8 md:left-auto md:right-8 md:translate-x-0">
-          {slides.map((slide, index) => (
-            <button
-              key={slide.id}
-              type="button"
-              aria-label={`Show ${slide.label}`}
-              aria-current={index === active}
-              onClick={() => setActive(index)}
-              className={cn(
-                'h-2 md:h-1.5 rounded-full transition-all duration-300 min-w-[40px] md:min-w-0 md:min-h-0',
-                index === active
-                  ? 'w-10 md:w-8 bg-accent-400'
-                  : 'w-10 md:w-1.5 bg-background-50/45 hover:bg-background-50/70',
-              )}
-            />
-          ))}
+        {/* Unified Navigation Controls */}
+        <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 items-center gap-4 md:bottom-8 md:left-auto md:right-8 md:translate-x-0">
+          <button
+            onClick={goPrev}
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-md transition-all hover:bg-white/40 md:h-11 md:w-11"
+            aria-label="Previous slide"
+          >
+            <ChevronLeft className="size-5 md:size-6 -ml-0.5" />
+          </button>
+
+          <div className="flex items-center gap-2">
+            {slides.map((slide, index) => (
+              <button
+                key={slide.id}
+                type="button"
+                aria-label={`Show ${slide.label}`}
+                aria-current={index === active}
+                onClick={() => setActive(index)}
+                className={cn(
+                  'h-2 md:h-1.5 rounded-full transition-all duration-300 min-w-[40px] md:min-w-0 md:min-h-0',
+                  index === active
+                    ? 'w-10 md:w-8 bg-accent-400'
+                    : 'w-10 md:w-1.5 bg-background-50/45 hover:bg-background-50/70',
+                )}
+              />
+            ))}
+          </div>
+
+          <button
+            onClick={goNext}
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-md transition-all hover:bg-white/40 md:h-11 md:w-11"
+            aria-label="Next slide"
+          >
+            <ChevronRight className="size-5 md:size-6 -mr-0.5" />
+          </button>
         </div>
       </div>
     </section>

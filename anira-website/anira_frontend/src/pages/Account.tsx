@@ -9,6 +9,7 @@ import { useProfile, setAuthToken, authKeys } from '@/api/auth'
 import { Login } from './Auth/Login'
 import { Register } from './Auth/Register'
 import { cn } from '@/lib/cn'
+import { PHOTOS } from '@/data/photos'
 import type { Address } from '@/types'
 
 type Tab = 'overview' | 'profile' | 'addresses' | 'wishlist'
@@ -54,14 +55,52 @@ export default function Account() {
 
   if (!profile) {
     return (
-      <div className="w-full bg-background-50 px-4 py-10 md:px-8 md:py-14 lg:px-12 min-h-[60vh]">
-        {authMode === 'login' ? (
-          <Login onSwitchToRegister={() => setAuthMode('register')} onSuccess={() => refetch()} />
-        ) : (
-          <Register onSwitchToLogin={() => setAuthMode('login')} onSuccess={() => refetch()} />
-        )}
+      <div className="relative flex min-h-[calc(100vh-80px)] w-full flex-col lg:flex-row">
+        {/* Image Background (Full screen on mobile, left half on desktop) */}
+        <div className="absolute inset-0 z-0 lg:relative lg:w-1/2 lg:block">
+          <img
+            src={PHOTOS.collections.shriya}
+            alt="Elegant Saree"
+            className="absolute inset-0 size-full object-cover"
+          />
+          {/* Mobile gets a darker overlay to make the glass card pop, Desktop gets the gradient */}
+          <div className="absolute inset-0 bg-black/40 lg:bg-gradient-to-t lg:from-black/80 lg:via-black/20 lg:to-transparent" />
+          
+          <div className="absolute bottom-12 left-12 right-12 z-10 hidden text-white lg:block">
+            <h2 className="mb-4 font-heading text-4xl font-semibold leading-tight md:text-5xl">
+              Elegance Woven <br />
+              <span className="font-normal italic">in Tradition</span>
+            </h2>
+            <p className="max-w-md font-body text-sm leading-relaxed text-white/80">
+              Discover exquisite work sarees and designer kurtas crafted for the modern Indian woman who cherishes her roots.
+            </p>
+          </div>
+        </div>
+
+        {/* Right Side: Auth Form */}
+        <div className="relative z-10 flex w-full items-center justify-center px-4 py-12 sm:px-6 lg:w-1/2 lg:bg-background-50 lg:px-12">
+          {/* Glassmorphism card on mobile, flat clean layout on desktop */}
+          <div className="w-full max-w-md rounded-3xl bg-background-50/95 px-6 py-10 shadow-2xl backdrop-blur-xl sm:px-10 lg:rounded-none lg:bg-transparent lg:p-0 lg:shadow-none lg:backdrop-blur-none">
+            <div className="mb-8 text-center lg:mb-10 lg:text-left">
+              <h1 className="font-heading text-3xl font-semibold text-foreground-900 md:text-4xl">
+                {authMode === 'login' ? 'Welcome Back' : 'Create an Account'}
+              </h1>
+              <p className="mt-2.5 font-body text-sm text-foreground-500">
+                {authMode === 'login'
+                  ? 'Please enter your details to sign in.'
+                  : 'Join us to explore premium ethnic wear.'}
+              </p>
+            </div>
+            
+            {authMode === 'login' ? (
+              <Login onSwitchToRegister={() => setAuthMode('register')} onSuccess={() => refetch()} />
+            ) : (
+              <Register onSwitchToLogin={() => setAuthMode('login')} onSuccess={() => refetch()} />
+            )}
+          </div>
+        </div>
       </div>
-    );
+    )
   }
 
   return (

@@ -51,6 +51,12 @@ export const NAV_LINKS: NavLink[] = [
         description: 'Celebration ensembles',
         image: PHOTOS.products.aadhira1,
       },
+      {
+        label: 'Office Wear',
+        href: '/category/kurtas?type=office',
+        description: 'Professional and chic',
+        image: PHOTOS.products.sairaSilk,
+      },
     ],
   },
   { label: 'About', href: '/about' },

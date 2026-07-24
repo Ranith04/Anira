@@ -16,26 +16,25 @@ export function Login({ onSwitchToRegister, onSuccess }: { onSwitchToRegister: (
   };
 
   return (
-    <div className="mx-auto max-w-sm rounded-2xl border border-primary-500/10 bg-background-100 p-8 shadow-sm mt-12">
-      <h2 className="font-heading text-2xl font-semibold text-foreground-900 mb-6 text-center">Sign In</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="w-full">
+      <form onSubmit={handleSubmit} className="space-y-5">
         <div>
-          <label className="mb-1 block font-body text-xs uppercase tracking-wide text-foreground-500">Email</label>
+          <label className="mb-1.5 block font-body text-xs uppercase tracking-wide text-foreground-500">Email Address</label>
           <input
             type="email"
             value={email}
             onChange={e => setEmail(e.target.value)}
-            className="w-full rounded-xl border border-primary-500/15 bg-background-50 px-4 py-3 font-body text-sm text-foreground-900 outline-none focus:border-primary-500"
+            className="w-full rounded-xl border border-primary-500/15 bg-white px-4 py-3.5 font-body text-sm text-foreground-900 outline-none transition-colors focus:border-primary-500"
             required
           />
         </div>
         <div>
-          <label className="mb-1 block font-body text-xs uppercase tracking-wide text-foreground-500">Password</label>
+          <label className="mb-1.5 block font-body text-xs uppercase tracking-wide text-foreground-500">Password</label>
           <input
             type="password"
             value={password}
             onChange={e => setPassword(e.target.value)}
-            className="w-full rounded-xl border border-primary-500/15 bg-background-50 px-4 py-3 font-body text-sm text-foreground-900 outline-none focus:border-primary-500"
+            className="w-full rounded-xl border border-primary-500/15 bg-white px-4 py-3.5 font-body text-sm text-foreground-900 outline-none transition-colors focus:border-primary-500"
             required
           />
         </div>
@@ -43,15 +42,15 @@ export function Login({ onSwitchToRegister, onSuccess }: { onSwitchToRegister: (
         <button
           type="submit"
           disabled={loginMutation.isPending}
-          className="w-full rounded-full bg-primary-500 px-4 py-3 font-body text-sm font-medium text-background-50 disabled:opacity-50"
+          className="mt-2 w-full rounded-full bg-primary-500 px-4 py-3.5 font-body text-sm font-medium text-background-50 transition-colors hover:bg-primary-600 disabled:opacity-50"
         >
           {loginMutation.isPending ? 'Signing in...' : 'Sign In'}
         </button>
       </form>
-      <p className="mt-6 text-center font-body text-sm text-foreground-500">
+      <p className="mt-8 text-center font-body text-sm text-foreground-500 lg:text-left">
         Don't have an account?{' '}
-        <button type="button" onClick={onSwitchToRegister} className="text-primary-500 font-medium">
-          Register
+        <button type="button" onClick={onSwitchToRegister} className="text-primary-500 font-medium hover:underline">
+          Register now
         </button>
       </p>
     </div>
