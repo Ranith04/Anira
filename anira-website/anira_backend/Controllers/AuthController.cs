@@ -46,7 +46,8 @@ public class AuthController : ControllerBase
                 Id = user.Id,
                 Email = user.Email,
                 FullName = user.FullName,
-                Phone = user.Phone
+                Phone = user.Phone,
+                Role = user.Role.ToString().ToLower()
             }
         });
     }
@@ -80,7 +81,8 @@ public class AuthController : ControllerBase
                 Id = createdUser.Id,
                 Email = createdUser.Email,
                 FullName = createdUser.FullName,
-                Phone = createdUser.Phone
+                Phone = createdUser.Phone,
+                Role = createdUser.Role.ToString().ToLower()
             }
         });
     }
@@ -103,7 +105,8 @@ public class AuthController : ControllerBase
             Id = user.Id,
             Email = user.Email,
             FullName = user.FullName,
-            Phone = user.Phone
+            Phone = user.Phone,
+            Role = user.Role.ToString().ToLower()
         });
     }
 

@@ -19,7 +19,6 @@ const SizeGuide = lazy(() => import('@/pages/SizeGuide'))
 const ShippingReturns = lazy(() => import('@/pages/ShippingReturns'))
 
 // Admin Pages
-const AdminLogin = lazy(() => import('@/pages/admin/AdminLogin'))
 const AdminDashboard = lazy(() => import('@/pages/admin/AdminDashboard'))
 const ProductList = lazy(() => import('@/pages/admin/ProductList'))
 const ProductForm = lazy(() => import('@/pages/admin/ProductForm'))
@@ -49,7 +48,6 @@ export const AppRoutes = () => {
         </Route>
         
         <Route path="/admin">
-          <Route path="login" element={<AdminLogin />} />
           <Route element={<AdminGuard />}>
             <Route element={<AdminLayout />}>
               <Route index element={<AdminDashboard />} />

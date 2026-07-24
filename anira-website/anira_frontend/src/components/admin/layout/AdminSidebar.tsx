@@ -46,6 +46,16 @@ export function AdminSidebar() {
           )
         })}
       </nav>
+
+      <div className="absolute bottom-0 left-0 w-full border-t border-primary-500/10 p-4">
+        <Link
+          to="/"
+          className="flex items-center gap-3 rounded-xl px-4 py-3 font-body text-sm font-medium text-foreground-600 transition-all duration-300 hover:bg-background-50 hover:text-primary-500"
+        >
+          <svg className="size-5 text-foreground-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+          Go to Store
+        </Link>
+      </div>
     </aside>
   )
 }

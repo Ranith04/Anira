@@ -1,5 +1,5 @@
 import { useMemo, useState, type FormEvent } from 'react'
-import { Link, useSearchParams } from 'react-router'
+import { Link, Navigate, useSearchParams } from 'react-router'
 import { Heart, MapPin, Package, User } from 'lucide-react'
 import { ProductCard } from '@/components/product/ProductCard'
 import { getProductById } from '@/data/catalog'
@@ -101,6 +101,10 @@ export default function Account() {
         </div>
       </div>
     )
+  }
+
+  if (profile.role === 'admin' || profile.role === 'staff') {
+    return <Navigate to="/admin" replace />
   }
 
   return (

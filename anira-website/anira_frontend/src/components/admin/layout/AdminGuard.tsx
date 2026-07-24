@@ -15,7 +15,7 @@ export function AdminGuard() {
 
   // If no profile or not admin/staff, redirect to login
   if (!profile || (profile.role !== 'admin' && profile.role !== 'staff')) {
-    return <Navigate to="/admin/login" state={{ from: location }} replace />
+    return <Navigate to="/account" state={{ from: location }} replace />
   }
 
   return <Outlet />
