@@ -54,7 +54,7 @@ export default function ProductForm() {
       <div className="grid gap-8 lg:grid-cols-3">
         <div className="space-y-8 lg:col-span-2">
           {/* General Information */}
-          <div className="rounded-3xl bg-white p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+          <div className="overflow-hidden rounded-3xl border border-white/40 bg-white/60 p-6 shadow-xl backdrop-blur-xl">
             <h3 className="mb-6 font-heading text-lg font-semibold text-foreground-900">General Information</h3>
             <div className="space-y-6">
               <div className="space-y-2">
@@ -62,7 +62,7 @@ export default function ProductForm() {
                 <input
                   type="text"
                   placeholder="e.g., Crimson Silk Banarasi Saree"
-                  className="w-full rounded-xl border border-primary-500/20 bg-background-50 px-4 py-3 font-body text-sm text-foreground-900 placeholder:text-foreground-400 focus:border-primary-500/50 focus:bg-white focus:outline-none focus:ring-4 focus:ring-primary-500/10"
+                  className="w-full rounded-xl border border-primary-500/20 bg-white/50 px-4 py-3 font-body text-sm text-foreground-900 placeholder:text-foreground-400 backdrop-blur-md transition-colors focus:border-primary-500/50 focus:bg-white/80 focus:outline-none focus:ring-4 focus:ring-primary-500/10"
                 />
               </div>
               <div className="space-y-2">
@@ -70,14 +70,14 @@ export default function ProductForm() {
                 <textarea
                   rows={5}
                   placeholder="Describe the product details, fabric, and styling..."
-                  className="w-full rounded-xl border border-primary-500/20 bg-background-50 px-4 py-3 font-body text-sm text-foreground-900 placeholder:text-foreground-400 focus:border-primary-500/50 focus:bg-white focus:outline-none focus:ring-4 focus:ring-primary-500/10"
+                  className="w-full rounded-xl border border-primary-500/20 bg-white/50 px-4 py-3 font-body text-sm text-foreground-900 placeholder:text-foreground-400 backdrop-blur-md transition-colors focus:border-primary-500/50 focus:bg-white/80 focus:outline-none focus:ring-4 focus:ring-primary-500/10"
                 />
               </div>
             </div>
           </div>
 
           {/* Media */}
-          <div className="rounded-3xl bg-white p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+          <div className="overflow-hidden rounded-3xl border border-white/40 bg-white/60 p-6 shadow-xl backdrop-blur-xl">
             <h3 className="mb-6 font-heading text-lg font-semibold text-foreground-900">Product Media</h3>
             
             <div
@@ -130,7 +130,7 @@ export default function ProductForm() {
 
         <div className="space-y-8">
           {/* Pricing & Inventory */}
-          <div className="rounded-3xl bg-white p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+          <div className="overflow-hidden rounded-3xl border border-white/40 bg-white/60 p-6 shadow-xl backdrop-blur-xl">
             <h3 className="mb-6 font-heading text-lg font-semibold text-foreground-900">Pricing & Inventory</h3>
             <div className="space-y-6">
               <div className="space-y-2">
@@ -138,7 +138,7 @@ export default function ProductForm() {
                 <input
                   type="text"
                   placeholder="0.00"
-                  className="w-full rounded-xl border border-primary-500/20 bg-background-50 px-4 py-3 font-body text-sm text-foreground-900 placeholder:text-foreground-400 focus:border-primary-500/50 focus:bg-white focus:outline-none focus:ring-4 focus:ring-primary-500/10"
+                  className="w-full rounded-xl border border-primary-500/20 bg-white/50 px-4 py-3 font-body text-sm text-foreground-900 placeholder:text-foreground-400 backdrop-blur-md transition-colors focus:border-primary-500/50 focus:bg-white/80 focus:outline-none focus:ring-4 focus:ring-primary-500/10"
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -147,7 +147,7 @@ export default function ProductForm() {
                   <input
                     type="text"
                     placeholder="ANI-001"
-                    className="w-full rounded-xl border border-primary-500/20 bg-background-50 px-4 py-3 font-body text-sm text-foreground-900 placeholder:text-foreground-400 focus:border-primary-500/50 focus:bg-white focus:outline-none focus:ring-4 focus:ring-primary-500/10"
+                    className="w-full rounded-xl border border-primary-500/20 bg-white/50 px-4 py-3 font-body text-sm text-foreground-900 placeholder:text-foreground-400 backdrop-blur-md transition-colors focus:border-primary-500/50 focus:bg-white/80 focus:outline-none focus:ring-4 focus:ring-primary-500/10"
                   />
                 </div>
                 <div className="space-y-2">
@@ -155,7 +155,7 @@ export default function ProductForm() {
                   <input
                     type="number"
                     placeholder="0"
-                    className="w-full rounded-xl border border-primary-500/20 bg-background-50 px-4 py-3 font-body text-sm text-foreground-900 placeholder:text-foreground-400 focus:border-primary-500/50 focus:bg-white focus:outline-none focus:ring-4 focus:ring-primary-500/10"
+                    className="w-full rounded-xl border border-primary-500/20 bg-white/50 px-4 py-3 font-body text-sm text-foreground-900 placeholder:text-foreground-400 backdrop-blur-md transition-colors focus:border-primary-500/50 focus:bg-white/80 focus:outline-none focus:ring-4 focus:ring-primary-500/10"
                   />
                 </div>
               </div>
@@ -163,7 +163,7 @@ export default function ProductForm() {
           </div>
 
           {/* Organization */}
-          <div className="rounded-3xl bg-white p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+          <div className="overflow-hidden rounded-3xl border border-white/40 bg-white/60 p-6 shadow-xl backdrop-blur-xl">
             <h3 className="mb-6 font-heading text-lg font-semibold text-foreground-900">Organization</h3>
             <div className="space-y-6">
               <div className="space-y-2">
@@ -195,7 +195,7 @@ export default function ProductForm() {
         >
           Cancel
         </button>
-        <button className="rounded-full bg-primary-500 px-8 py-2.5 font-body text-sm font-medium text-white shadow-lg shadow-primary-500/25 transition-all hover:bg-primary-600 hover:shadow-xl hover:shadow-primary-500/30">
+        <button className="rounded-full bg-primary-600 px-8 py-2.5 font-body text-sm font-semibold text-white shadow-lg shadow-primary-500/30 transition-all hover:-translate-y-0.5 hover:bg-primary-700 hover:shadow-xl hover:shadow-primary-500/40">
           Save Product
         </button>
       </div>

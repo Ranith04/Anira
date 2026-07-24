@@ -145,12 +145,37 @@ public class DatabaseSeeder
                 new { Id1 = p1, Id2 = p2, Id3 = p3 }, transaction);
             
             // Seed Variants
+            var v1 = Guid.NewGuid();
+            var v2 = Guid.NewGuid();
+            var v3 = Guid.NewGuid();
             await conn.ExecuteAsync(@"
-                INSERT INTO product_variants (product_id, sku, stock_quantity) VALUES 
-                (@Id1, 'SA-BAN-01-DEF', 10),
-                (@Id2, 'KU-COT-01-DEF', 25),
-                (@Id3, 'SA-CHI-02-DEF', 15)",
-                new { Id1 = p1, Id2 = p2, Id3 = p3 }, transaction);
+                INSERT INTO product_variants (id, product_id, sku, stock_quantity) VALUES 
+                (@Id1, @P1, 'SA-BAN-01-DEF', 10),
+                (@Id2, @P2, 'KU-COT-01-DEF', 25),
+                (@Id3, @P3, 'SA-CHI-02-DEF', 15)",
+                new { Id1 = v1, Id2 = v2, Id3 = v3, P1 = p1, P2 = p2, P3 = p3 }, transaction);
+
+            // Seed Mock Orders
+            var o1 = Guid.NewGuid();
+            var o2 = Guid.NewGuid();
+            await conn.ExecuteAsync(@"
+                INSERT INTO orders (id, user_id, status, subtotal, total_amount) VALUES 
+                (@Id1, (SELECT id FROM users WHERE email = 'priya@example.com'), 'delivered', 3850.00, 3850.00),
+                (@Id2, (SELECT id FROM users WHERE email = 'priya@example.com'), 'pending', 1800.00, 1800.00)",
+                new { Id1 = o1, Id2 = o2 }, transaction);
+
+            await conn.ExecuteAsync(@"
+                INSERT INTO order_items (order_id, variant_id, product_name_snapshot, unit_price, quantity) VALUES 
+                (@O1, @V1, 'Priya - Banarasi Silk Saree', 3850.00, 1),
+                (@O2, @V2, 'Meera - Cotton Anarkali Kurta', 1800.00, 1)",
+                new { O1 = o1, O2 = o2, V1 = v1, V2 = v2 }, transaction);
+
+            // Seed Payments
+            await conn.ExecuteAsync(@"
+                INSERT INTO payments (order_id, method, status, amount) VALUES 
+                (@O1, 'card', 'paid', 3850.00),
+                (@O2, 'upi', 'pending', 1800.00)",
+                new { O1 = o1, O2 = o2 }, transaction);
 
             transaction.Commit();
             _logger.LogInformation("Database seeded successfully.");

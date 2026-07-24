@@ -6,6 +6,11 @@ export async function fetchApi<T>(endpoint: string, options?: RequestInit): Prom
     headers.set('Content-Type', 'application/json');
   }
 
+  const token = localStorage.getItem('anira_token');
+  if (token && !headers.has('Authorization')) {
+    headers.set('Authorization', `Bearer ${token}`);
+  }
+
   const response = await fetch(`${BASE_URL}${endpoint}`, {
     ...options,
     headers,
